@@ -1,0 +1,97 @@
+{
+  "game_info": {
+    "title": "Console.Adventure",
+    "version": "1.0",
+    "author": "Your Name Here",
+    "description": "A mysterious adventure in an ancient realm"
+  },
+  "game_settings": {
+    "starting_location": "start",
+    "starting_health": 100,
+    "max_health": 150,
+    "enable_combat": false,
+    "enable_magic": true
+  },
+  "intro_text": {
+    "welcome_message": "Welcome to Console.Adventure!",
+    "game_description": "You find yourself in a mysterious realm filled with ancient secrets and forgotten magic.",
+    "instruction_text": "Type 'help' for available commands. Type 'quit' to exit the game.",
+    "name_prompt": "What's your name, adventurer?"
+  },
+  "special_actions": {
+    "examine_chest": {
+      "description": "The chest looks old and weathered. Its brass fittings are tarnished with age, but it might contain something useful.",
+      "requirements": [],
+      "effects": []
+    },
+    "open_chest": {
+      "description": "You open the chest with a loud creak. Inside, nestled in faded velvet, you find a rusty key!",
+      "requirements": [],
+      "effects": [
+        {"type": "give_item", "item": "rusty_key"}
+      ]
+    },
+    "read_book": {
+      "description": "You pick up a dusty tome and carefully open it. The pages contain mysterious symbols and arcane formulas. You feel slightly wiser after reading it.",
+      "requirements": [],
+      "effects": [
+        {"type": "give_item", "item": "ancient_tome"}
+      ]
+    },
+    "tower_view": {
+      "description": "From up here, you can see a vast forest to the east, snow-capped mountains to the north, and a shimmering lake to the south. The view fills you with determination and wonder!",
+      "requirements": [],
+      "effects": [
+        {"type": "heal_player", "amount": 10}
+      ]
+    },
+    "examine_torches": {
+      "description": "The torches burn with an unusual blue flame. One of them looks loose and could probably be taken.",
+      "requirements": [],
+      "effects": []
+    },
+    "take_torch": {
+      "description": "You carefully remove the loose torch from its bracket. The blue flame flickers but continues to burn steadily in your hand.\n\nHint: You can now 'use torch' to light up dark areas, or check your 'inventory' to see all your items!",
+      "requirements": [],
+      "effects": [
+        {"type": "give_item", "item": "torch"}
+      ]
+    },
+    "examine_shelves": {
+      "description": "The shelves are filled with books on various subjects: ancient history, forgotten magic, and mysterious creatures. As you run your hand along one section, you hear a soft click. One of the bookcases swings inward, revealing a hidden passage!\n\nHint: You can now type 'secret' to enter the secret chamber!",
+      "requirements": [],
+      "effects": [
+        {"type": "reveal_location", "location": "secret_chamber"}
+      ]
+    },
+    "examine_crystals": {
+      "description": "The crystals pulse with a gentle blue light. They seem to respond to your presence, glowing brighter as you approach.",
+      "requirements": [],
+      "effects": []
+    },
+    "touch_crystals": {
+      "description": "As you touch the crystal, warm energy flows through your body, healing your wounds and restoring your spirit!",
+      "requirements": [],
+      "effects": [
+        {"type": "heal_player", "amount": 25},
+        {"type": "give_item", "item": "glowing_crystal"}
+      ]
+    }
+  },
+  "messages": {
+    "help_text": [
+      "--- Available Commands ---",
+      "Movement: north, south, east, west, up, down",
+      "Actions: examine, open, read, look around, touch",
+      "Inventory: inventory (or 'i') - show your items",
+      "Items: use [item name] - use an item from inventory",
+      "Stats: stats - show your character info", 
+      "Other: help, look (or 'l'), quit",
+      "",
+      "Try typing the actions you see listed in each location!"
+    ],
+    "invalid_command": "I don't understand that command. Type 'help' for available commands.",
+    "item_not_found": "You don't have that item.",
+    "exit_message": "Thanks for playing! See you next time!"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "rusty_key": {
+    "name": "Rusty Key",
+    "description": "An old, rusty key with intricate engravings. It looks like it might open something important.",
+    "pickup_message": "You picked up the rusty key. It feels surprisingly heavy in your hand.",
+    "use_message": "You use the rusty key. It turns with a satisfying click!",
+    "can_pickup": true,
+    "consumable": true,
+    "value": 10
+  },
+  "ancient_tome": {
+    "name": "Ancient Tome",
+    "description": "A leather-bound book filled with mysterious symbols and arcane knowledge. Reading it makes you feel wiser.",
+    "pickup_message": "You carefully pick up the ancient tome. Knowledge flows through your fingers.",
+    "use_message": "You study the ancient tome and gain valuable knowledge!",
+    "can_pickup": true,
+    "consumable": false,
+    "value": 50,
+    "special_effect": "wisdom_boost"
+  },
+  "glowing_crystal": {
+    "name": "Glowing Crystal",
+    "description": "A beautiful crystal that pulses with inner light. It radiates warmth and seems to contain magical energy.",
+    "pickup_message": "You carefully pick up the glowing crystal. It warms your hand with gentle energy.",
+    "use_message": "You focus on the glowing crystal and feel your health restored!",
+    "can_pickup": true,
+    "consumable": true,
+    "value": 100,
+    "special_effect": "heal_player"
+  },
+  "torch": {
+    "name": "Torch",
+    "description": "A burning torch that provides light in dark places. The flame dances hypnotically.",
+    "pickup_message": "",
+    "use_message": "You hold the torch high, illuminating the area around you.",
+    "can_pickup": true,
+    "consumable": false,
+    "value": 5,
+    "special_effect": "light_source"
+  },
+  "mysterious_scroll": {
+    "name": "Mysterious Scroll",
+    "description": "A rolled parchment with strange writing. The words seem to shimmer and change when you're not looking directly at them.",
+    "pickup_message": "You pick up the mysterious scroll. The parchment feels oddly warm.",
+    "use_message": "You unroll the scroll and read the mystical words aloud...",
+    "can_pickup": true,
+    "consumable": true,
+    "value": 75,
+    "special_effect": "random_effect"
+  }
+}
