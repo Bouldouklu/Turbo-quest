@@ -2,7 +2,7 @@
   "living_room": {
     "name": "Living Room",
     "description": "You're in the cozy living room where sunlight streams through the windows. Maxwell sits by the window, staring intently at something only he can see. His tail twitches with purpose - he definitely wants you to follow him somewhere.",
-    "first_visit_description": "You wake up from your afternoon nap to find Maxwell behaving very strangely. The orange tabby is sitting perfectly still by the large window, his green eyes focused on... nothing you can see. But his ears are perked forward and his tail does that slow, meaningful twitch that says 'I know something important.' The living room feels charged with anticipation.",
+    "first_visit_description": "You wake up from your afternoon nap to find Maxwell behaving very strangely. The black and brown cat with white paws and chest is sitting perfectly still by the large window, his yellow eyes focused on... nothing you can see. But his ears are perked forward and his tail does that slow, meaningful twitch that says 'I know something important.' The living room feels charged with anticipation.",
     "exits": {
       "kitchen": "kitchen",
       "bedroom": "bedroom"
@@ -18,7 +18,7 @@
   "kitchen": {
     "name": "Kitchen",
     "description": "The kitchen smells of kibble and treats. Maxwell sits boldly on the forbidden counter (which he never does!), staring up at a high cabinet with laser focus. He looks at you, then at the cabinet, then back at you. His message is clear: 'Something important is up there.'",
-    "first_visit_description": "You follow Maxwell into the kitchen, your claws clicking on the tile floor. The room carries the familiar scents of home, but Maxwell is acting completely out of character - sitting on the counter he's never allowed on! His golden eyes are fixed on one particular high cabinet with unwavering intensity.",
+    "first_visit_description": "You follow Maxwell into the kitchen, your claws clicking on the tile floor. The room carries the familiar scents of home, but Maxwell is acting completely out of character - sitting on the counter he's never allowed on! His yellow eyes are fixed on one particular high cabinet with unwavering intensity.",
     "exits": {
       "living room": "living_room",
       "balcony": "balcony"

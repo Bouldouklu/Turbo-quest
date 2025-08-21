@@ -16,7 +16,7 @@
   },
   "special_actions": {
     "maxwell_leads_to_kitchen": {
-      "description": "Maxwell stands up, stretches, and walks purposefully toward the kitchen. He pauses at the doorway and looks back at you with those intense green eyes, clearly wanting you to follow. His tail swishes once - a definite 'come on!' signal.",
+      "description": "Maxwell stands up, stretches, and walks purposefully toward the kitchen. He pauses at the doorway and looks back at you with those intense yellow eyes, clearly wanting you to follow. His tail swishes once - a definite 'come on!' signal.",
       "repeatable": true,
       "repeat_message": "Maxwell continues to look toward the kitchen meaningfully. He definitely wants you to go there."
     },
