@@ -1,16 +1,12 @@
 {
   "game_info": {
     "title": "Turbo's Quest",
-    "version": "1.2",
+    "version": "1.3",
     "author": "Made with Love for a Special Friend",
-    "description": "A heartwarming adventure about Maxwell's mysterious intuition and Turbo's quest to prepare for something wonderful - now with enhanced discovery system!"
+    "description": "A heartwarming adventure about Maxwell's mysterious intuition and Turbo's quest to prepare for something wonderful - cleaned up version!"
   },
   "game_settings": {
-    "starting_location": "living_room",
-    "starting_health": 100,
-    "max_health": 100,
-    "enable_combat": false,
-    "enable_magic": false
+    "starting_location": "living_room"
   },
   "intro_text": {
     "welcome_message": "🐕 Welcome to Turbo's Quest! 🐕",
@@ -21,21 +17,16 @@
   "special_actions": {
     "maxwell_leads_to_kitchen": {
       "description": "Maxwell stands up, stretches, and walks purposefully toward the kitchen. He pauses at the doorway and looks back at you with those intense green eyes, clearly wanting you to follow. His tail swishes once - a definite 'come on!' signal.",
-      "requirements": [],
-      "effects": [],
       "repeatable": true,
       "repeat_message": "Maxwell continues to look toward the kitchen meaningfully. He definitely wants you to go there."
     },
     "examine_living_window": {
       "description": "You put your paws on the windowsill and look outside. The view shows the garden below and neighborhood beyond, but you can't see what Maxwell is focusing on. His cat intuition must be detecting something your eyes can't see.",
-      "requirements": [],
-      "effects": [],
       "repeatable": true,
       "repeat_message": "The window shows the same peaceful view, but Maxwell's behavior suggests something more is happening."
     },
     "examine_dog_bed": {
       "description": "Your comfortable dog bed sits in its usual corner, but today something's different. Maxwell has left a single cat treat on your pillow - definitely not normal behavior! He's trying to tell you something important. You also notice your favorite chew bone nearby.",
-      "requirements": [],
       "effects": [
         {"type": "give_item", "item": "favorite_bone"}
       ],
@@ -44,14 +35,11 @@
     },
     "examine_high_cabinet": {
       "description": "The cabinet is way above your head with a simple latch. You can smell something interesting inside - new plastic and fabric. Maxwell's intense stare tells you this is definitely important, but you need to find a way to reach it.",
-      "requirements": [],
-      "effects": [],
       "repeatable": true,
       "repeat_message": "The cabinet remains out of reach, but you know something important is inside."
     },
     "get_step_stool_action": {
       "description": "You nose open the lower cabinet and find a wooden step stool inside! Perfect for reaching high places. You grab it by the edge and drag it out across the kitchen floor. Maxwell watches approvingly - this is exactly what you need.",
-      "requirements": [],
       "effects": [
         {"type": "give_item", "item": "step_stool"}
       ],
@@ -71,7 +59,6 @@
     },
     "examine_under_bed": {
       "description": "You squeeze under the bed and peer into the dusty space. Your nose picks up something interesting - there's a small object wedged behind one of the bed legs. It's too far for Maxwell to reach, but perfect for your longer snout. You carefully extract a soft old sock that might be useful later.",
-      "requirements": [],
       "effects": [
         {"type": "give_item", "item": "old_sock"}
       ],
@@ -80,7 +67,6 @@
     },
     "examine_balcony_box": {
       "description": "The storage box contains garden tools - a small trowel, fertilizer, and watering supplies. But tucked underneath, you spot something metallic glinting in the sunlight. It's a small key that looks like it might unlock something important!",
-      "requirements": [],
       "effects": [
         {"type": "give_item", "item": "garden_key"}
       ],
@@ -89,14 +75,11 @@
     },
     "examine_garden_from_balcony": {
       "description": "From the balcony, you have a perfect view of the garden below. Following Maxwell's gaze, you spot a specific area near the large rhododendron bush where the soil looks disturbed. Something is definitely buried there!",
-      "requirements": [],
-      "effects": [],
       "repeatable": true,
       "repeat_message": "The disturbed soil near the rhododendron continues to catch your attention."
     },
     "dig_behind_plants": {
       "description": "You start digging enthusiastically at the exact spot Maxwell indicated. The soil gives way easily under your paws. About six inches down, you hit something soft and fabric-like. Carefully extracting it with your teeth, you uncover a pair of brightly colored gloves! They have protective padding and look designed for outdoor activities.",
-      "requirements": [],
       "effects": [
         {"type": "give_item", "item": "child_mtb_gloves"}
       ],
@@ -105,8 +88,6 @@
     },
     "examine_garden_shed": {
       "description": "The tool shed sits in the corner, its door secured with a simple lock. Through gaps in the wooden walls, you can see garden tools and storage boxes. Maxwell keeps glancing at it meaningfully - there's definitely something important inside.",
-      "requirements": [],
-      "effects": [],
       "repeatable": true,
       "repeat_message": "The shed continues to seem important, waiting for the right key."
     },
@@ -127,7 +108,6 @@
       "requirements": [
         {"type": "has_item", "item": "small_mtb_bike", "message": "The shed is still locked."}
       ],
-      "effects": [],
       "repeatable": true,
       "repeat_message": "The bike sits there, a wonderful sign of what's coming to your family."
     }
@@ -155,7 +135,6 @@
       "- Understanding their significance unlocks the final revelation!"
     ],
     "invalid_command": "You tilt your head, confused. Try 'help' to see what you can do, or just follow Maxwell's lead!",
-    "item_not_found": "You don't have that item with you.",
     "exit_message": "Thanks for playing Turbo's Quest! 🐕 You've discovered Maxwell's wonderful secret - a new little family member is coming soon! 🎉"
   }
 }

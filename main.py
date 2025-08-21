@@ -1,35 +1,33 @@
 #!/usr/bin/env python3
 """
-Turbo's Quest - A Heartwarming Pet Adventure (Enhanced Version with Better Size Mystery)
+Turbo's Quest - A Heartwarming Pet Adventure (Cleaned Up Version)
 A special text adventure about Maxwell's mysterious intuition and Turbo's quest
 Built with love for a dear friend expecting a wonderful surprise!
 
-Enhanced with:
-- Complete size mystery until the revelation
-- Gradual realization system where Turbo understands item significance
-- Automatic location info display after each action to prevent player confusion
+This cleaned version removes:
+- Unused health/combat system
+- Unused item values and consumable logic
+- Redundant error handling
+- Unused item effects
 """
 
 import json
 import os
-import random
 
 
 class Player:
     """
     Represents Turbo, the adventurous German Shepherd
-    This class manages Turbo's status, inventory, and progress through the game
+    This class manages Turbo's inventory and progress through the game
     """
-    def __init__(self, name="Turbo", starting_health=100):
+    def __init__(self, name="Turbo"):
         self.name = name
-        self.health = starting_health
-        self.max_health = starting_health
         self.inventory = []  # Items Turbo is carrying or has found
         self.current_location = None  # Current room/area Turbo is in
         self.discovered_locations = []  # Places Turbo has visited
         self.completed_actions = []  # Actions completed (prevents repetition)
         self.quest_items_found = 0  # Track progress toward the big revelation
-        self.size_realization_triggered = False  # New: tracks if Turbo realized the size significance
+        self.size_realization_triggered = False  # Tracks if Turbo realized the size significance
     
     def add_item(self, item_id, items_data):
         """
@@ -52,16 +50,14 @@ class Player:
                 elif self.quest_items_found == 2:
                     print("Maxwell's tail swishes with excitement. One more to go!")
                 elif self.quest_items_found == 3:
-                    # New: Hint that something special is about to happen
                     print("Maxwell's eyes are bright with anticipation. You have all the pieces now...")
                     print("💡 Try using 'examine all items' to understand what you've collected!")
-                
         else:
             print(f"Error: Item '{item_id}' not found in game data.")
     
     def remove_item(self, item_id, items_data):
         """
-        Remove an item from Turbo's inventory when it's used or consumed
+        Remove an item from Turbo's inventory when it's used
         """
         if item_id in self.inventory:
             self.inventory.remove(item_id)
@@ -100,7 +96,6 @@ class Player:
         Display Turbo's current status including progress toward the goal
         """
         print(f"\n--- {self.name}'s Status ---")
-        print(f"Energy: {self.health}/{self.max_health} 🐕")
         print(f"Location: {self.current_location}")
         print(f"Items Found: {len(self.inventory)}")
         print(f"Quest Progress: {self.quest_items_found}/3 special items")
@@ -190,14 +185,11 @@ class GameEngine:
         # Simple start prompt for our story
         input(intro.get("name_prompt", "Press Enter to begin Turbo's adventure..."))
         
-        # Create Turbo with settings from the story configuration
-        settings = self.story_config.get("game_settings", {})
-        starting_health = settings.get("starting_health", 100)
-        self.player = Player("Turbo", starting_health)
-        self.player.max_health = settings.get("max_health", 100)
+        # Create Turbo - no health system needed
+        self.player = Player("Turbo")
         
         # Set Turbo's starting location
-        starting_location = settings.get("starting_location", "living_room")
+        starting_location = self.story_config.get("game_settings", {}).get("starting_location", "living_room")
         self.player.current_location = starting_location
         
         print(f"\n🐕 You are Turbo, and something mysterious is happening...")
@@ -216,13 +208,6 @@ class GameEngine:
         This continues until the player quits or wins the game
         """
         while self.game_running:
-            # Check if we should trigger the size realization (new step!)
-            if (not self.player.size_realization_triggered and 
-                self.check_all_items_collected() and 
-                not self.revelation_triggered):
-                # Don't auto-trigger yet, let player discover it through commands
-                pass
-            
             # Check if we should trigger the final revelation
             if (not self.revelation_triggered and 
                 self.player.size_realization_triggered and 
@@ -238,8 +223,7 @@ class GameEngine:
         Process Turbo's commands and execute appropriate actions
         This is where we interpret what the player wants to do
         
-        ENHANCEMENT: Now automatically shows location info after most actions
-        to help players stay oriented and know their options
+        Automatically shows location info after most actions to help players stay oriented
         """
         # Flag to track if we should show location info after this command
         show_location_after = True
@@ -268,7 +252,7 @@ class GameEngine:
             self.describe_current_location()
             show_location_after = False  # We just showed location info
             
-        # New: Special command to examine all quest items together
+        # Special command to examine all quest items together
         elif command in ["examine all items", "examine items", "compare items", "look at all items"]:
             self.examine_all_quest_items()
             # After this major story moment, show where we are
@@ -292,7 +276,7 @@ class GameEngine:
             # Show available options to help the player
             self.show_current_options()
         
-        # ENHANCEMENT: Show location info after most actions to keep player oriented
+        # Show location info after most actions to keep player oriented
         if show_location_after and self.game_running:
             self.show_quick_location_reminder()
     
@@ -350,7 +334,7 @@ class GameEngine:
         # Show basic commands
         print("  Other commands: 'help', 'inventory', 'look', 'stats'")
         
-        # New: If player has all quest items but hasn't realized the size significance, give a hint
+        # If player has all quest items but hasn't realized the size significance, give a hint
         if (self.check_all_items_collected() and 
             not self.player.size_realization_triggered):
             print("\n🤔 You have all the special items Maxwell wanted you to find...")
@@ -358,7 +342,7 @@ class GameEngine:
     
     def show_quick_location_reminder(self):
         """
-        NEW METHOD: Show a brief reminder of where Turbo is and what he can do
+        Show a brief reminder of where Turbo is and what he can do
         This appears after actions to keep players oriented without being too verbose
         """
         location_id = self.player.current_location
@@ -390,8 +374,7 @@ class GameEngine:
     def examine_all_quest_items(self):
         """
         Allows Turbo to examine all quest items together
-        This triggers the size realization - the new intermediate step!
-        Now enhanced to avoid giving away the size mystery too early
+        This triggers the size realization - the intermediate step before the final revelation!
         """
         quest_items = ["child_mtb_helmet", "child_mtb_gloves", "small_mtb_bike"]
         
@@ -409,7 +392,7 @@ class GameEngine:
             print("Maxwell's plan is becoming clearer!")
             return
         
-        # Trigger the size realization scene (new!)
+        # Trigger the size realization scene
         print("\n" + "="*50)
         print("🧠 MOMENT OF UNDERSTANDING 🧠")
         print("="*50)
@@ -466,7 +449,6 @@ class GameEngine:
         """
         Show the full description of Turbo's current location
         Uses first-visit description for new areas, regular description for revisits
-        This is the detailed view used for "look" command and first visits
         """
         location_id = self.player.current_location
         location = self.locations[location_id]
@@ -545,7 +527,7 @@ class GameEngine:
     def apply_effect(self, effect):
         """
         Apply an effect from a special action
-        Effects can give items, heal the player, or trigger story events
+        Effects can give items or trigger story events
         """
         effect_type = effect.get("type")
         
@@ -553,14 +535,6 @@ class GameEngine:
             item_id = effect.get("item")
             if item_id:
                 self.player.add_item(item_id, self.items)
-        
-        elif effect_type == "heal_player":
-            amount = effect.get("amount", 10)
-            old_health = self.player.health
-            self.player.health = min(self.player.health + amount, self.player.max_health)
-            healed = self.player.health - old_health
-            if healed > 0:
-                print(f"You feel more energetic! Restored {healed} energy points. 🐕")
         
         elif effect_type == "trigger_revelation":
             # This effect prepares for the final revelation scene
@@ -583,19 +557,10 @@ class GameEngine:
         required_items = ["child_mtb_helmet", "child_mtb_gloves", "small_mtb_bike"]
         return all(self.player.has_item(item) for item in required_items)
     
-    def check_revelation_condition(self):
-        """
-        Check if conditions are met for the final revelation
-        Now requires both having all items AND understanding their size significance
-        """
-        return (self.check_all_items_collected() and 
-                self.player.size_realization_triggered)
-    
     def trigger_final_revelation(self):
         """
         Trigger the final revelation scene - the heart of the story!
         This is where Turbo realizes what Maxwell has been trying to tell him
-        Now enhanced to build on the size realization and avoid premature size mentions
         """
         if not self.revelation_triggered:
             print("\n" + "="*60)

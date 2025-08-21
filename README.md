@@ -31,14 +31,13 @@ Maxwell's feline intuition has sensed something important coming to the family, 
 ### Game Commands
 
 #### Movement
-- `north`, `south`, `east`, `west` (or `n`, `s`, `e`, `w`) - Move between rooms
-- `up`, `down` - Use stairs or go between levels
+- Use location names directly: `kitchen`, `bedroom`, `garden`, `balcony`, etc.
 
 #### Dog Actions 🐕
 - `examine [thing]` - Look at objects, Maxwell, or areas closely
-- `sniff around` - Use your keen dog nose to detect scents
-- `dig [location]` - Dig in the garden or other suitable spots
-- `jump [target]` - Jump onto counters or other surfaces
+- `follow maxwell` - Follow Maxwell's guidance
+- `dig here` - Dig in the garden when Maxwell shows you where
+- `jump on counter` - Jump onto surfaces (when you have the right tools)
 - `open [container]` - Open cabinets, sheds, or containers
 
 #### System Commands
@@ -46,7 +45,7 @@ Maxwell's feline intuition has sensed something important coming to the family, 
 - `inventory` or `i` - View items you're carrying
 - `stats` - Check Turbo's status and progress
 - `look` or `l` - Re-examine your current location
-- `use [item]` - Use an item you've found
+- `examine all items` - **Special command to understand quest items together**
 - `quit` or `exit` - End the game
 
 ## 🗺️ Locations
@@ -57,7 +56,7 @@ Explore Turbo's familiar home environment:
 - **Bedroom** - Secrets under beds and in closets
 - **Balcony** - Outdoor views and garden access
 - **Garden** - Digging spots and a tool shed
-- **Storage Room** - Where important discoveries await
+- **Tool Shed** - Where important discoveries await
 
 ## 🎾 Quest Items
 
@@ -69,14 +68,43 @@ Maxwell is guiding you to find three special items:
 ## 💡 Tips for Success
 
 - **Follow Maxwell's guidance** - Pay attention to where he sits and stares
-- **Use your dog abilities** - Sniffing and digging are your superpowers
+- **Use your dog abilities** - Digging and exploring are your superpowers
 - **Explore thoroughly** - Check every room and examine everything
 - **Collect helpful tools** - Some items help you reach or unlock other areas
+- **Examine all items together** - When you have all three quest items, use this special command to understand their significance
 - **Trust the process** - Maxwell's mysterious behavior has a wonderful purpose
 
 ## 🎯 The Mystery
 
-As you gather the items Maxwell wants you to find, you'll start to notice something special about them. Trust in Maxwell's feline intuition - he knows something wonderful that he's trying to share with you!
+As you gather the items Maxwell wants you to find, you'll start to notice something special about them. The game has two revelation moments:
+
+1. **Size Realization** - Understanding what these items have in common
+2. **Final Revelation** - Discovering the wonderful family secret!
+
+Trust in Maxwell's feline intuition - he knows something wonderful that he's trying to share with you!
+
+## 📝 What's Changed in the Cleaned Version
+
+### Removed (Never Used):
+- **Health/combat system** - Turbo never gets hurt or fights
+- **Item values** - No buying/selling in this game
+- **Consumable item logic** - Items don't get used up
+- **Magic/combat settings** - Not needed for this story
+- **Unused special effects** - Like "comfort_item", "soft_tool"
+- **Redundant error messages** - Simplified error handling
+
+### Kept (Actually Used):
+- **Quest item tracking** - Essential for the story progression
+- **Size realization system** - Key story mechanic
+- **Location visiting tracking** - For first-visit descriptions
+- **Action completion tracking** - Prevents repeated actions
+- **Item requirements** - For actions like using the step stool
+
+### Benefits of Cleanup:
+- **Faster loading** - Less unused code to process
+- **Easier to understand** - No confusing unused features
+- **Simpler to modify** - Less complexity for future changes
+- **Better performance** - Removed unnecessary checks and calculations
 
 ## 📝 Technical Details
 
@@ -84,6 +112,7 @@ As you gather the items Maxwell wants you to find, you'll start to notice someth
 - **JSON-driven story system** - Easy to modify and expand
 - **No external dependencies** - Uses only Python standard library
 - **Beginner-friendly code** - Well-commented for learning
+- **Cleaned and optimized** - Removed all unused features
 
 ---
 
