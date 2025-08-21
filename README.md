@@ -58,13 +58,6 @@ Explore Turbo's familiar home environment:
 - **Garden** - Digging spots and a tool shed
 - **Tool Shed** - Where important discoveries await
 
-## 🎾 Quest Items
-
-Maxwell is guiding you to find three special items:
-1. **A colorful helmet** (hidden in high places)
-2. **Gloves** (buried treasures)
-3. **A special bike** (locked away safely)
-
 ## 💡 Tips for Success
 
 - **Follow Maxwell's guidance** - Pay attention to where he sits and stares
@@ -73,38 +66,6 @@ Maxwell is guiding you to find three special items:
 - **Collect helpful tools** - Some items help you reach or unlock other areas
 - **Examine all items together** - When you have all three quest items, use this special command to understand their significance
 - **Trust the process** - Maxwell's mysterious behavior has a wonderful purpose
-
-## 🎯 The Mystery
-
-As you gather the items Maxwell wants you to find, you'll start to notice something special about them. The game has two revelation moments:
-
-1. **Size Realization** - Understanding what these items have in common
-2. **Final Revelation** - Discovering the wonderful family secret!
-
-Trust in Maxwell's feline intuition - he knows something wonderful that he's trying to share with you!
-
-## 📝 What's Changed in the Cleaned Version
-
-### Removed (Never Used):
-- **Health/combat system** - Turbo never gets hurt or fights
-- **Item values** - No buying/selling in this game
-- **Consumable item logic** - Items don't get used up
-- **Magic/combat settings** - Not needed for this story
-- **Unused special effects** - Like "comfort_item", "soft_tool"
-- **Redundant error messages** - Simplified error handling
-
-### Kept (Actually Used):
-- **Quest item tracking** - Essential for the story progression
-- **Size realization system** - Key story mechanic
-- **Location visiting tracking** - For first-visit descriptions
-- **Action completion tracking** - Prevents repeated actions
-- **Item requirements** - For actions like using the step stool
-
-### Benefits of Cleanup:
-- **Faster loading** - Less unused code to process
-- **Easier to understand** - No confusing unused features
-- **Simpler to modify** - Less complexity for future changes
-- **Better performance** - Removed unnecessary checks and calculations
 
 ## 📝 Technical Details
 
