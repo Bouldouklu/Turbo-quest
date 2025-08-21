@@ -8,7 +8,7 @@
       "bedroom": "bedroom"
     },
     "actions": {
-      "follow maxwell": "maxwell_leads_to_kitchen",
+      "follow maxwell's gaze": "maxwell_leads_to_kitchen",
       "examine window": "examine_living_window",
       "examine dog bed": "examine_dog_bed"
     },
@@ -69,7 +69,7 @@
     },
     "actions": {
       "dig here": "dig_behind_plants",
-      "follow maxwell": "dig_behind_plants",
+      "follow maxwell's gaze": "dig_behind_plants",
       "examine shed": "examine_garden_shed"
     },
     "items": [],
