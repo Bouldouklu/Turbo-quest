@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-Turbo's Quest - A Heartwarming Pet Adventure (Enhanced Version)
+Turbo's Quest - A Heartwarming Pet Adventure (Enhanced Version with Better Navigation)
 A special text adventure about Maxwell's mysterious intuition and Turbo's quest
 Built with love for a dear friend expecting a wonderful surprise!
 
-Enhanced with a gradual realization system where Turbo understands the significance
-of the item sizes before the final revelation.
+Enhanced with:
+- Gradual realization system where Turbo understands item significance
+- Automatic location info display after each action to prevent player confusion
 """
 
 import json
@@ -235,7 +236,13 @@ class GameEngine:
         """
         Process Turbo's commands and execute appropriate actions
         This is where we interpret what the player wants to do
+        
+        ENHANCEMENT: Now automatically shows location info after most actions
+        to help players stay oriented and know their options
         """
+        # Flag to track if we should show location info after this command
+        show_location_after = True
+        
         # Basic commands that work everywhere
         if command in ["quit", "exit"]:
             messages = self.story_config.get("messages", {})
@@ -246,26 +253,53 @@ class GameEngine:
         
         elif command == "help":
             self.show_help()
-            return
-        
+            show_location_after = False  # Help already shows what you need
+            
         elif command in ["inventory", "i"]:
             self.player.show_inventory(self.items)
-            return
-        
+            show_location_after = False  # Inventory is separate from location
+            
         elif command == "stats":
             self.player.show_stats()
-            return
-        
+            show_location_after = False  # Stats are separate from location
+            
         elif command in ["look", "l"]:
             self.describe_current_location()
-            return
-        
+            show_location_after = False  # We just showed location info
+            
         # New: Special command to examine all quest items together
         elif command in ["examine all items", "examine items", "compare items", "look at all items"]:
             self.examine_all_quest_items()
-            return
-        
+            # After this major story moment, show where we are
+            
         # Handle movement commands - simplified to use location names
+        elif self.handle_movement_command(command):
+            show_location_after = False  # Movement already shows new location
+            
+        # Check special actions available in current location
+        elif self.handle_location_action(command):
+            # After performing an action, we'll show location info
+            pass
+            
+        else:
+            # Command not recognized - give helpful feedback
+            messages = self.story_config.get("messages", {})
+            invalid_msg = messages.get("invalid_command", "You tilt your head, confused.")
+            print(invalid_msg)
+            show_location_after = False  # We'll show help instead
+            
+            # Show available options to help the player
+            self.show_current_options()
+        
+        # ENHANCEMENT: Show location info after most actions to keep player oriented
+        if show_location_after and self.game_running:
+            self.show_quick_location_reminder()
+    
+    def handle_movement_command(self, command):
+        """
+        Handle movement between locations
+        Returns True if the command was a valid movement, False otherwise
+        """
         current_loc = self.locations[self.player.current_location]
         exits = current_loc.get("exits", {})
         
@@ -273,28 +307,47 @@ class GameEngine:
         for exit_key, destination in exits.items():
             if command == exit_key or command == destination:
                 self.move_player(destination)
-                return
-        
-        # Check special actions available in current location
+                return True
+        return False
+    
+    def handle_location_action(self, command):
+        """
+        Handle special actions available in the current location
+        Returns True if the command was a valid action, False otherwise
+        """
+        current_loc = self.locations[self.player.current_location]
         actions = current_loc.get("actions", {})
+        
         if command in actions:
             action_id = actions[command]
             self.handle_special_action(action_id)
-            return
+            return True
+        return False
+    
+    def show_current_options(self):
+        """
+        Show what the player can currently do - used when they enter invalid commands
+        This helps players understand their options without being overwhelming
+        """
+        current_loc = self.locations[self.player.current_location]
+        actions = current_loc.get("actions", {})
+        exits = current_loc.get("exits", {})
         
-        # Command not recognized - give helpful feedback
-        messages = self.story_config.get("messages", {})
-        invalid_msg = messages.get("invalid_command", "You tilt your head, confused.")
-        print(invalid_msg)
-        
-        # Show available options to help the player
         print("\n💡 You can try:")
-        for action in actions.keys():
-            print(f"  - {action}")
+        
+        # Show available actions first (most important)
+        if actions:
+            for action in actions.keys():
+                print(f"  - {action}")
+        
+        # Show movement options
         if exits:
             print("  Or go to:")
             for exit_name in exits.keys():
                 print(f"  - {exit_name}")
+        
+        # Show basic commands
+        print("  Other commands: 'help', 'inventory', 'look', 'stats'")
         
         # New: If player has all quest items but hasn't realized the size significance, give a hint
         if (self.check_all_items_collected() and 
@@ -302,9 +355,40 @@ class GameEngine:
             print("\n🤔 You have all the special items Maxwell wanted you to find...")
             print("Maybe you should 'examine all items' to understand their significance?")
     
+    def show_quick_location_reminder(self):
+        """
+        NEW METHOD: Show a brief reminder of where Turbo is and what he can do
+        This appears after actions to keep players oriented without being too verbose
+        """
+        location_id = self.player.current_location
+        location = self.locations[location_id]
+        
+        print(f"\n📍 Currently in: {location['name']}")
+        
+        # Show available actions in a compact format
+        actions = location.get("actions", {})
+        if actions:
+            actions_list = list(actions.keys())
+            if len(actions_list) <= 3:
+                # If few actions, show them all
+                print(f"🎯 Can do: {', '.join(actions_list)}")
+            else:
+                # If many actions, show first few and indicate there are more
+                print(f"🎯 Can do: {', '.join(actions_list[:3])}, and more ('look' to see all)")
+        
+        # Show available exits in a compact format
+        exits = location.get("exits", {})
+        if exits:
+            exits_list = list(exits.keys())
+            print(f"🚪 Can go to: {', '.join(exits_list)}")
+        
+        # Show quest progress if relevant
+        if self.player.quest_items_found > 0:
+            print(f"🎾 Quest: {self.player.quest_items_found}/3 special items found")
+    
     def examine_all_quest_items(self):
         """
-        New method: Allows Turbo to examine all quest items together
+        Allows Turbo to examine all quest items together
         This triggers the size realization - the new intermediate step!
         """
         quest_items = ["child_mtb_helmet", "child_mtb_gloves", "small_mtb_bike"]
@@ -375,8 +459,9 @@ class GameEngine:
     
     def describe_current_location(self):
         """
-        Show the description of Turbo's current location
+        Show the full description of Turbo's current location
         Uses first-visit description for new areas, regular description for revisits
+        This is the detailed view used for "look" command and first visits
         """
         location_id = self.player.current_location
         location = self.locations[location_id]
@@ -403,7 +488,7 @@ class GameEngine:
             for direction in exits:
                 print(f"  - {direction}")
         
-        # New: Add hint about examining items if conditions are met
+        # Add hint about examining items if conditions are met
         if (self.check_all_items_collected() and 
             not self.player.size_realization_triggered):
             print("\n💭 You feel like you should examine all the items you've found...")
@@ -556,7 +641,10 @@ class GameEngine:
             "Special commands:",
             "- 'examine all items' - Look at your quest items together",
             "",
-            "🎯 QUEST: Follow Maxwell's guidance to find three special items!"
+            "🎯 QUEST: Follow Maxwell's guidance to find three special items!",
+            "",
+            "💡 TIP: After each action, you'll see a quick reminder of where",
+            "you are and what you can do to help you stay oriented!"
         ])
         
         for line in help_lines:
