@@ -1,6 +1,6 @@
 {
   "game_info": {
-    "title": "Turbo's Training Mission",
+    "title": "Turbo's Quest",
     "version": "1.0",
     "author": "Made with Love for a Special Friend",
     "description": "A heartwarming adventure about Maxwell's mysterious intuition and Turbo's quest to prepare for something wonderful"
@@ -13,14 +13,14 @@
     "enable_magic": false
   },
   "intro_text": {
-    "welcome_message": "🐕 Welcome to Turbo's Training Mission! 🐕",
-    "game_description": "You are Turbo, a energetic German Shepherd hybrid living in a cozy apartment in Zürich with your family. Your cat companion Maxwell has been acting very strangely lately - staring at empty spaces, sitting in unusual spots, and giving you meaningful looks. Something important is happening, and Maxwell seems to know what it is. Trust his guidance and follow his mysterious clues to discover what he's trying to show you!",
+    "welcome_message": "🐕 Welcome to Turbo's Quest! 🐕",
+    "game_description": "You are Turbo, a energetic German Shepherd living in a cozy apartment with your family. Your cat companion Maxwell has been acting very strangely lately - staring at empty spaces, sitting in unusual spots, and giving you meaningful looks. Something important is happening, and Maxwell seems to know what it is. Trust his guidance and follow his mysterious clues to discover what he's trying to show you!",
     "instruction_text": "Type 'help' for available commands. Use your dog instincts to sniff, examine, and explore!",
     "name_prompt": "Press Enter to begin Turbo's adventure..."
   },
   "special_actions": {
     "examine_maxwell_start": {
-      "description": "Maxwell turns his green eyes toward you with that intense stare he reserves for important moments. His ears are perked forward, and he makes a soft 'mrrow' sound - not his usual meow, but something more urgent. He looks toward the kitchen, then back at you, then toward the kitchen again. His message is clear: 'Follow me, there's something we need to do.'",
+      "description": "Maxwell turns his eyes toward you with that intense stare he reserves for important moments. His ears are perked forward, and he makes a soft 'mrrow' sound - not his usual meow, but something more urgent. He looks toward the kitchen, then back at you, then toward the kitchen again. His message is clear: 'Follow me, there's something we need to do.'",
       "requirements": [],
       "effects": [],
       "repeatable": true,

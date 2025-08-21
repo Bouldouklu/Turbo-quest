@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Turbo's Training Mission - A Heartwarming Pet Adventure
+Turbo's Quest - A Heartwarming Pet Adventure
 A special text adventure about Maxwell's mysterious intuition and Turbo's quest
 Built with love for a dear friend expecting a wonderful surprise!
 """
@@ -12,7 +12,7 @@ import random
 
 class Player:
     """
-    Represents Turbo, the adventurous German Shepherd hybrid
+    Represents Turbo, the adventurous German Shepherd
     """
     def __init__(self, name="Turbo", starting_health=100):
         self.name = name

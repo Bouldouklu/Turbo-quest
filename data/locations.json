@@ -2,14 +2,13 @@
   "living_room": {
     "name": "Living Room",
     "description": "You're in the cozy living room where you and Maxwell usually relax. Sunlight streams through the windows, and your favorite dog bed sits in the corner. Maxwell is sitting by the window, staring intently at something you can't see. His tail is twitching in that mysterious way that means he knows something important.",
-    "first_visit_description": "You wake up from your afternoon nap and notice Maxwell behaving strangely. The gray and white cat is sitting perfectly still by the large window, his green eyes focused on... nothing visible. His ears are perked forward, and his tail does that slow, deliberate twitch that means he's thinking about something important. The living room feels different today - charged with anticipation.",
+    "first_visit_description": "You wake up from your afternoon nap and notice Maxwell behaving strangely. The cat is sitting perfectly still by the large window, his green eyes focused on... nothing visible. His ears are perked forward, and his tail does that slow, deliberate twitch that means he's thinking about something important. The living room feels different today - charged with anticipation.",
     "exits": {
       "north": "kitchen",
       "east": "bedroom", 
       "south": "balcony"
     },
     "actions": {
-      "examine maxwell": "examine_maxwell_start",
       "look at maxwell": "examine_maxwell_start",
       "examine window": "examine_living_window",
       "examine dog bed": "examine_dog_bed",
@@ -28,8 +27,8 @@
     },
     "actions": {
       "examine maxwell": "examine_maxwell_kitchen",
-      "examine cabinet": "examine_high_cabinet", 
-      "examine cabinets": "examine_kitchen_cabinets",
+      "examine high cabinet": "examine_high_cabinet", 
+      "examine all cabinets": "examine_kitchen_cabinets",
       "open cabinet": "get_step_stool_action",
       "open lower cabinet": "get_step_stool_action",
       "jump on counter": "jump_kitchen_counter",

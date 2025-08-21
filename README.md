@@ -1,4 +1,4 @@
-# 🐕 Turbo's Training Mission 🐱
+# 🐕 Turbo's Quest 🐱
 
 A heartwarming text adventure about Maxwell's mysterious intuition and Turbo's quest to discover a wonderful family secret!
 
