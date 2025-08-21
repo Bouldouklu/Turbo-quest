@@ -59,7 +59,7 @@
       "repeat_message": "You've already gotten the step stool from this cabinet."
     },
     "jump_kitchen_counter": {
-      "description": "Using the step stool, you leap onto the counter (definitely not allowed!). From up here, you can reach the high cabinet. Maxwell purrs approvingly and rubs against you briefly. With careful nose work, you manage to open the latch and discover a small, colorful helmet inside! It's much smaller than any adult helmet you've seen.",
+      "description": "Using the step stool, you leap onto the counter (definitely not allowed!). From up here, you can reach the high cabinet. Maxwell purrs approvingly and rubs against you briefly. With careful nose work, you manage to open the latch and discover a colorful helmet inside! It looks well-made and sturdy, with bright colors and fun patterns.",
       "requirements": [
         {"type": "has_item", "item": "step_stool", "message": "You need the step stool to reach the counter safely."}
       ],
@@ -95,7 +95,7 @@
       "repeat_message": "The disturbed soil near the rhododendron continues to catch your attention."
     },
     "dig_behind_plants": {
-      "description": "You start digging enthusiastically at the exact spot Maxwell indicated. The soil gives way easily under your paws. About six inches down, you hit something soft and fabric-like. Carefully extracting it with your teeth, you uncover a small pair of brightly colored gloves! They're tiny - much smaller than any human hands you know.",
+      "description": "You start digging enthusiastically at the exact spot Maxwell indicated. The soil gives way easily under your paws. About six inches down, you hit something soft and fabric-like. Carefully extracting it with your teeth, you uncover a pair of brightly colored gloves! They have protective padding and look designed for outdoor activities.",
       "requirements": [],
       "effects": [
         {"type": "give_item", "item": "child_mtb_gloves"}
@@ -111,7 +111,7 @@
       "repeat_message": "The shed continues to seem important, waiting for the right key."
     },
     "unlock_garden_shed": {
-      "description": "You use the small garden key to unlock the tool shed. The door creaks open, revealing garden tools and storage boxes. But in the back corner, covered by an old blanket, you discover something amazing: a small, brightly colored mountain bike with training wheels! It's incredibly tiny - clearly designed for someone much smaller than any human you know.",
+      "description": "You use the small garden key to unlock the tool shed. The door creaks open, revealing garden tools and storage boxes. But in the back corner, covered by an old blanket, you discover something amazing: a beautiful balance bike with bright and cheerful colors! It's perfectly made and looks ready for adventure.",
       "requirements": [
         {"type": "has_item", "item": "garden_key", "message": "You need the key to unlock this shed."}
       ],
@@ -123,13 +123,13 @@
       "repeat_message": "The shed is now open, its wonderful secret revealed."
     },
     "examine_shed_contents": {
-      "description": "Looking inside the unlocked shed, you see the tiny mountain bike that started everything making sense. All the pieces of Maxwell's puzzle are now clear!",
+      "description": "Looking inside the unlocked shed, you see the beautiful balance bike that started everything making sense. All the pieces of Maxwell's puzzle are now clear!",
       "requirements": [
         {"type": "has_item", "item": "small_mtb_bike", "message": "The shed is still locked."}
       ],
       "effects": [],
       "repeatable": true,
-      "repeat_message": "The tiny bike sits there, a wonderful sign of what's coming to your family."
+      "repeat_message": "The bike sits there, a wonderful sign of what's coming to your family."
     }
   },
   "messages": {

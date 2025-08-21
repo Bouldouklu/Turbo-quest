@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Turbo's Quest - A Heartwarming Pet Adventure (Enhanced Version with Better Navigation)
+Turbo's Quest - A Heartwarming Pet Adventure (Enhanced Version with Better Size Mystery)
 A special text adventure about Maxwell's mysterious intuition and Turbo's quest
 Built with love for a dear friend expecting a wonderful surprise!
 
 Enhanced with:
+- Complete size mystery until the revelation
 - Gradual realization system where Turbo understands item significance
 - Automatic location info display after each action to prevent player confusion
 """
@@ -390,6 +391,7 @@ class GameEngine:
         """
         Allows Turbo to examine all quest items together
         This triggers the size realization - the new intermediate step!
+        Now enhanced to avoid giving away the size mystery too early
         """
         quest_items = ["child_mtb_helmet", "child_mtb_gloves", "small_mtb_bike"]
         
@@ -402,8 +404,8 @@ class GameEngine:
         # If already triggered, just show a brief description
         if self.player.size_realization_triggered:
             print("You look at the three items together again:")
-            print("The tiny helmet, the small gloves, and the miniature bike.")
-            print("They're definitely all made for someone VERY small...")
+            print("The colorful helmet, the adventure gloves, and the beautiful bike.")
+            print("Now you understand - they're all designed for someone special...")
             print("Maxwell's plan is becoming clearer!")
             return
         
@@ -413,17 +415,20 @@ class GameEngine:
         print("="*50)
         
         print("\nYou gather all three special items together and examine them carefully...")
-        print("The colorful helmet... the protective gloves... the beautiful bike...")
+        print("The colorful helmet with its protective padding...")
+        print("The adventure gloves with their sturdy grip...")
+        print("The beautiful bike, perfectly crafted and ready for fun...")
         print("\nYou tilt your head as you study each item more closely.")
-        print("Wait a minute... something's not quite right here...")
-        print("\nThe helmet is SO much smaller than any human head you know.")
-        print("The gloves could barely fit a human hand you've ever seen.")
-        print("And this bike... it's perfectly made but incredibly tiny!")
-        print("\nYour ears perk up with sudden realization...")
-        print("These aren't just small - they're CHILD-SIZED!")
-        print("Everything Maxwell has been guiding you to find...")
-        print("...is made for someone much, much smaller than any adult!")
-        print("\nYour tail starts wagging as the pieces begin to fit together.")
+        print("Wait a minute... something's becoming clear about these items...")
+        print("\nAs you look at them all together, a pattern emerges.")
+        print("They're not just random adventure gear...")
+        print("They all seem to be made for the same person!")
+        print("But who in your family would need ALL of these things?")
+        print("\nYour ears perk up with growing excitement...")
+        print("These items aren't meant for any of the adult humans you know...")
+        print("They're all perfectly sized for someone much smaller!")
+        print("Someone who doesn't live in your house yet...")
+        print("\nYour tail starts wagging as understanding dawns.")
         print("Maxwell appears beside you, purring softly, his eyes twinkling")
         print("with approval. You're getting closer to understanding his secret!")
         
@@ -435,7 +440,7 @@ class GameEngine:
         # Mark the size realization as triggered
         self.player.size_realization_triggered = True
         
-        print("\n🎯 Now that you understand the significance of these tiny items,")
+        print("\n🎯 Now that you understand these items have a special purpose,")
         print("think about WHY Maxwell wanted you to find them...")
         print("Continue exploring or 'look' around to trigger the final revelation!")
     
@@ -590,28 +595,29 @@ class GameEngine:
         """
         Trigger the final revelation scene - the heart of the story!
         This is where Turbo realizes what Maxwell has been trying to tell him
-        Now enhanced to build on the size realization
+        Now enhanced to build on the size realization and avoid premature size mentions
         """
         if not self.revelation_triggered:
             print("\n" + "="*60)
             print("🎉 THE WONDERFUL REVELATION! 🎉")
             print("="*60)
             
-            print("\nNow that you understand these items are all child-sized,")
+            print("\nNow that you understand these special items have a purpose,")
             print("Maxwell's mysterious behavior suddenly makes perfect sense!")
             print("\nYou sit quietly, thinking about what this means...")
-            print("Child-sized helmet... child-sized gloves... child-sized bike...")
-            print("Why would your family need things for a CHILD?")
+            print("Adventure helmet... protective gloves... beautiful bike...")
+            print("All perfectly made for someone who isn't here yet...")
+            print("Someone who will need these special things...")
             print("\nSuddenly, your tail starts wagging uncontrollably!")
             print("Your heart fills with pure joy and excitement!")
             print("\n🍼 A NEW LITTLE FAMILY MEMBER IS COMING! 🍼")
-            print("\nA tiny human who will need these small adventure items!")
-            print("Someone small enough to wear that helmet, those gloves,")
-            print("and ride that beautiful little bike!")
+            print("\nA tiny human who will need these adventure items!")
+            print("Someone small who will grow up to wear that helmet,")
+            print("use those gloves, and ride that beautiful bike!")
             print("\nMaxwell appears beside you, purring loudly, his green eyes")
             print("sparkling with satisfaction. He rubs against your leg lovingly.")
             print("His feline intuition knew this wonderful secret all along!")
-            print("\nYour family is growing! Soon there will be a small human")
+            print("\nYour family is growing! Soon there will be a little human")
             print("to protect, play with, and eventually teach about")
             print("mountain biking adventures!")
             print("\nYou spin in a happy circle, barking with joy!")
