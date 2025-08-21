@@ -1,7 +1,7 @@
 {
   "game_info": {
     "title": "Console.Adventure",
-    "version": "1.0",
+    "version": "1.1",
     "author": "Your Name Here",
     "description": "A mysterious adventure in an ancient realm"
   },
@@ -14,84 +14,150 @@
   },
   "intro_text": {
     "welcome_message": "Welcome to Console.Adventure!",
-    "game_description": "You find yourself in a mysterious realm filled with ancient secrets and forgotten magic.",
+    "game_description": "You find yourself in a mysterious realm filled with ancient secrets and forgotten magic. Your quest: gather the three mystical artifacts and unlock the final secret!",
     "instruction_text": "Type 'help' for available commands. Type 'quit' to exit the game.",
     "name_prompt": "What's your name, adventurer?"
   },
   "special_actions": {
     "examine_chest": {
-      "description": "The chest looks old and weathered. Its brass fittings are tarnished with age, but it might contain something useful.",
+      "description": "The chest looks old and weathered. Its brass fittings are tarnished with age, but it might contain something useful. The lock appears to be broken.",
       "requirements": [],
-      "effects": []
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The chest still sits there, looking as weathered as before."
     },
     "open_chest": {
-      "description": "You open the chest with a loud creak. Inside, nestled in faded velvet, you find a rusty key!",
+      "description": "You open the chest with a loud creak. Inside, nestled in faded velvet, you find a rusty key! This looks important for your quest.",
       "requirements": [],
       "effects": [
         {"type": "give_item", "item": "rusty_key"}
-      ]
+      ],
+      "repeatable": false,
+      "repeat_message": "The chest is already open and empty. You've taken everything useful from it."
+    },
+    "examine_start_symbols": {
+      "description": "The ancient symbols carved into the walls seem to depict a story: a key, a glowing crystal, and an open book. Below them, more symbols suggest these three items together unlock great power. This must be guidance for your quest!",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The symbols still tell the same story of three artifacts and their combined power."
     },
     "read_book": {
-      "description": "You pick up a dusty tome and carefully open it. The pages contain mysterious symbols and arcane formulas. You feel slightly wiser after reading it.",
+      "description": "You pick up a dusty tome and carefully open it. The pages contain mysterious symbols and arcane formulas. As you study it, you feel ancient knowledge flowing into your mind. This tome will be essential for your quest!",
       "requirements": [],
       "effects": [
         {"type": "give_item", "item": "ancient_tome"}
-      ]
+      ],
+      "repeatable": false,
+      "repeat_message": "You've already studied this tome thoroughly. The knowledge is now part of you."
+    },
+    "examine_library_books": {
+      "description": "The shelves contain thousands of books on subjects like Ancient Magic, Forgotten Realms, Crystal Lore, and Mystical Keys. One particular tome seems to glow faintly, calling to you.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The books remain as mysterious and fascinating as ever."
     },
     "tower_view": {
-      "description": "From up here, you can see a vast forest to the east, snow-capped mountains to the north, and a shimmering lake to the south. The view fills you with determination and wonder!",
+      "description": "From up here, you can see a vast forest to the east, snow-capped mountains to the north, and a shimmering lake to the south. The breathtaking view fills you with determination and wonder, restoring your spirit!",
       "requirements": [],
       "effects": [
         {"type": "heal_player", "amount": 10}
-      ]
+      ],
+      "repeatable": true,
+      "repeat_message": "The view is still magnificent, but you've already gained all the inspiration you can from it today."
     },
     "examine_torches": {
-      "description": "The torches burn with an unusual blue flame. One of them looks loose and could probably be taken.",
+      "description": "The torches burn with an unusual blue flame that never seems to consume the wood. One of them looks loose and could probably be taken. You'll need light to explore dark areas safely.",
       "requirements": [],
-      "effects": []
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The remaining torches are firmly mounted in their brackets."
+    },
+    "examine_hallway_shadows": {
+      "description": "The shadows dance and flicker with the torchlight. They seem to form shapes and patterns, almost like they're trying to tell you something about the mysteries of this place.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The shadows continue their eternal dance."
     },
     "take_torch": {
-      "description": "You carefully remove the loose torch from its bracket. The blue flame flickers but continues to burn steadily in your hand.\n\nHint: You can now 'use torch' to light up dark areas, or check your 'inventory' to see all your items!",
+      "description": "You carefully remove the loose torch from its bracket. The blue flame flickers but continues to burn steadily in your hand, providing reliable light for dark places.\n\n💡 Hint: You can now 'use torch' to light up dark areas, or check your 'inventory' to see all your items!",
       "requirements": [],
       "effects": [
         {"type": "give_item", "item": "torch"}
-      ]
+      ],
+      "repeatable": false,
+      "repeat_message": "You've already taken the loose torch. The others are firmly secured."
     },
     "examine_shelves": {
-      "description": "The shelves are filled with books on various subjects: ancient history, forgotten magic, and mysterious creatures. As you run your hand along one section, you hear a soft click. One of the bookcases swings inward, revealing a hidden passage!\n\nHint: You can now type 'secret' to enter the secret chamber!",
+      "description": "The shelves are filled with books on various subjects: ancient history, forgotten magic, and mysterious creatures. As you run your hand along one section, you hear a soft click. One of the bookcases swings inward, revealing a hidden passage!\n\n🔍 Hint: You can now type 'north' to enter the secret chamber!",
       "requirements": [],
       "effects": [
-        {"type": "reveal_location", "location": "secret_chamber"}
-      ]
+        {"type": "reveal_location", "location": "secret_chamber", "direction": "north"}
+      ],
+      "repeatable": false,
+      "repeat_message": "The secret passage is still open to the north. You've discovered all the secrets of these shelves."
     },
     "examine_crystals": {
-      "description": "The crystals pulse with a gentle blue light. They seem to respond to your presence, glowing brighter as you approach.",
+      "description": "The crystals pulse with a gentle blue light that seems to respond to your presence. They glow brighter as you approach, as if recognizing a worthy adventurer. These crystals contain powerful magic.",
       "requirements": [],
-      "effects": []
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The crystals continue to pulse with their mysterious energy."
+    },
+    "examine_chamber_symbols": {
+      "description": "The symbols in this chamber are different from those in the starting room. These seem to be instructions: touch the crystal to claim its power, combine it with ancient knowledge and a key to unlock the ultimate secret.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The symbols continue to provide guidance for your quest."
     },
     "touch_crystals": {
-      "description": "As you touch the crystal, warm energy flows through your body, healing your wounds and restoring your spirit!",
+      "description": "As you touch the largest crystal, warm energy flows through your body, healing your wounds and restoring your spirit! The crystal breaks free from the wall - you can take it with you. This mystical crystal is the final piece you need for your quest!",
       "requirements": [],
       "effects": [
         {"type": "heal_player", "amount": 25},
         {"type": "give_item", "item": "glowing_crystal"}
-      ]
+      ],
+      "repeatable": false,
+      "repeat_message": "The remaining crystals are firmly embedded in the wall and won't budge. You've taken the most powerful one."
+    },
+    "final_unlock": {
+      "description": "The ancient magic recognizes that you have gathered all three artifacts! The crystal provides energy, the tome provides knowledge, and the key unlocks the ultimate secret. Reality shimmers around you as the final mystery is revealed!",
+      "requirements": [
+        {"type": "has_item", "item": "rusty_key", "message": "You need the rusty key to unlock this mystery."},
+        {"type": "has_item", "item": "glowing_crystal", "message": "You need the glowing crystal to power this magic."},
+        {"type": "has_item", "item": "ancient_tome", "message": "You need the ancient tome to understand this magic."}
+      ],
+      "effects": [
+        {"type": "win_game"}
+      ],
+      "repeatable": false,
+      "repeat_message": "The final secret has been unlocked. Your quest is complete!"
     }
   },
   "messages": {
     "help_text": [
       "--- Available Commands ---",
-      "Movement: north, south, east, west, up, down",
-      "Actions: examine, open, read, look around, touch",
+      "Movement: north (n), south (s), east (e), west (w), up (u), down (d)",
+      "Actions: examine, open, read, look around, touch, unlock",
       "Inventory: inventory (or 'i') - show your items",
       "Items: use [item name] - use an item from inventory",
       "Stats: stats - show your character info", 
       "Other: help, look (or 'l'), quit",
       "",
-      "Try typing the actions you see listed in each location!"
+      "🎯 QUEST GOAL: Find the rusty key, ancient tome, and glowing crystal,",
+      "then return to the starting room and 'unlock door' to win!",
+      "",
+      "💡 Tips:",
+      "- Examine everything carefully",
+      "- Some actions can only be done once",
+      "- Use your torch in dark areas",
+      "- The final secret requires all three artifacts"
     ],
     "invalid_command": "I don't understand that command. Type 'help' for available commands.",
     "item_not_found": "You don't have that item.",
-    "exit_message": "Thanks for playing! See you next time!"
+    "exit_message": "Thanks for playing Console.Adventure! Your adventure ends here, but the mysteries of the realm will always remember your courage."
   }
 }

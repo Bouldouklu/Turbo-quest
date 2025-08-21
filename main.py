@@ -3,10 +3,12 @@
 Console Dot Adventure - A Text Adventure Engine
 A simple but expandable framework for creating text-based adventures
 Now powered by JSON data files for easy story modification!
+FIXED VERSION: Addresses item duplication, action state tracking, and other issues
 """
 
 import json
 import os
+import random
 
 
 class Player:
@@ -20,6 +22,8 @@ class Player:
         self.inventory = []
         self.current_location = None  # Will be set by game engine
         self.discovered_locations = []  # Track which locations player has found
+        # NEW: Track completed actions to prevent duplication
+        self.completed_actions = []  
     
     def add_item(self, item_id, items_data):
         """Add an item to the player's inventory"""
@@ -66,6 +70,7 @@ class Player:
         print(f"Location: {self.current_location}")
         print(f"Items: {len(self.inventory)}")
         print(f"Locations Discovered: {len(self.discovered_locations)}")
+        print(f"Actions Completed: {len(self.completed_actions)}")
     
     def heal(self, amount):
         """Heal the player by specified amount"""
@@ -116,12 +121,16 @@ class DataLoader:
 class GameEngine:
     """
     Main game engine that handles the game loop, commands, and story flow
-    Now loads all content from JSON files!
+    Now loads all content from JSON files and fixes loopholes!
     """
     def __init__(self):
         self.player = None
         self.game_running = True
         self.data_loader = DataLoader()
+        
+        # NEW: Track game state
+        self.game_won = False
+        self.dark_areas = ["secret_chamber"]  # Areas that need torch
         
         # Load all game data from JSON files
         if not self.data_loader.load_all_data():
@@ -162,6 +171,7 @@ class GameEngine:
         
         print(f"\nWelcome, {self.player.name}!")
         print(intro.get("instruction_text", "Type 'help' for commands."))
+        print("\n🎯 QUEST GOAL: Find all the crystals and return to unlock the final mystery!")
         
         # Show starting location
         self.describe_current_location()
@@ -172,6 +182,10 @@ class GameEngine:
     def game_loop(self):
         """Main game loop - keeps the game running until player quits"""
         while self.game_running:
+            # Check win condition
+            if not self.game_won and self.check_win_condition():
+                self.handle_victory()
+            
             # Get player input
             user_input = input("\n> ").strip().lower()
             
@@ -180,6 +194,14 @@ class GameEngine:
     
     def process_command(self, command):
         """Process player commands and execute appropriate actions"""
+        # Expand abbreviated directions
+        direction_aliases = {
+            'n': 'north', 's': 'south', 'e': 'east', 'w': 'west',
+            'u': 'up', 'd': 'down'
+        }
+        if command in direction_aliases:
+            command = direction_aliases[command]
+        
         # Basic commands that work everywhere
         if command in ["quit", "exit"]:
             messages = self.story_config.get("messages", {})
@@ -210,6 +232,12 @@ class GameEngine:
             self.use_item(item_name)
             return
         
+        # NEW: Handle "unlock [thing]" commands
+        elif command.startswith("unlock "):
+            thing = command[7:].strip()
+            self.handle_unlock(thing)
+            return
+        
         # Location-specific commands
         current_loc = self.locations[self.player.current_location]
         
@@ -235,6 +263,11 @@ class GameEngine:
     def move_player(self, new_location):
         """Move the player to a new location"""
         if new_location in self.locations:
+            # NEW: Check if area requires torch
+            if new_location in self.dark_areas and not self.player.has_item("torch"):
+                print("It's too dark to go that way! You need a torch to light your way.")
+                return
+            
             self.player.current_location = new_location
             
             # Add to discovered locations if not already there
@@ -259,12 +292,21 @@ class GameEngine:
         else:
             print(location["description"])
         
+        # NEW: Check for special conditions
+        if location_id == "start" and self.player.has_item("glowing_crystal") and self.player.has_item("ancient_tome"):
+            print("\n✨ The room suddenly feels different. The crystal and tome are resonating with each other!")
+            if "unlock door" not in [action for action in location.get("actions", {})]:
+                # Add new action dynamically
+                location.setdefault("actions", {})["unlock door"] = "final_unlock"
+                print("🔓 You can now 'unlock door' to reveal the final secret!")
+        
         # Show available exits
         exits = location.get("exits", {})
         if exits:
             print("\nYou can go:")
             for direction in exits:
-                print(f"  - {direction}")
+                destination = self.locations.get(exits[direction], {}).get("name", exits[direction])
+                print(f"  - {direction} (to {destination})")
         
         # Show available actions
         actions = location.get("actions", {})
@@ -286,9 +328,21 @@ class GameEngine:
         
         action = special_actions[action_id]
         
-        # Check requirements (future feature)
+        # NEW: Check if action was already completed and shouldn't be repeated
+        if action_id in self.player.completed_actions:
+            repeat_message = action.get("repeat_message", "You've already done that.")
+            print(repeat_message)
+            return
+        
+        # Check requirements
         requirements = action.get("requirements", [])
-        # TODO: Implement requirement checking
+        for req in requirements:
+            if req.get("type") == "has_item":
+                required_item = req.get("item")
+                if not self.player.has_item(required_item):
+                    req_message = req.get("message", f"You need {required_item} to do that.")
+                    print(req_message)
+                    return
         
         # Show action description
         print(action.get("description", "Something happens..."))
@@ -297,6 +351,10 @@ class GameEngine:
         effects = action.get("effects", [])
         for effect in effects:
             self.apply_effect(effect)
+        
+        # NEW: Mark action as completed if it shouldn't be repeated
+        if action.get("repeatable", False) == False:
+            self.player.completed_actions.append(action_id)
     
     def apply_effect(self, effect):
         """Apply an effect from a special action"""
@@ -313,17 +371,48 @@ class GameEngine:
         
         elif effect_type == "reveal_location":
             location_id = effect.get("location")
+            direction = effect.get("direction", "secret")  # NEW: Configurable direction
             if location_id and location_id in self.locations:
                 # Add a new exit to current location
                 current_loc = self.locations[self.player.current_location]
                 if "exits" not in current_loc:
                     current_loc["exits"] = {}
                 
-                # Add a way to get to the secret location
-                current_loc["exits"]["secret"] = location_id
-                print(f"A secret passage has been revealed!")
+                current_loc["exits"][direction] = location_id
+                dest_name = self.locations[location_id].get("name", location_id)
+                print(f"A secret passage has been revealed! You can now go '{direction}' to the {dest_name}.")
         
-        # Add more effect types as needed
+        # NEW: Add more effect types
+        elif effect_type == "random_effect":
+            self.apply_random_effect()
+        
+        elif effect_type == "win_game":
+            self.game_won = True
+    
+    def apply_random_effect(self):
+        """Apply a random effect from the mysterious scroll"""
+        effects = [
+            {"type": "heal", "amount": 15, "message": "The scroll glows and heals your wounds!"},
+            {"type": "damage", "amount": 5, "message": "The scroll backfires and hurts you slightly!"},
+            {"type": "teleport", "message": "The scroll teleports you to a random location!"},
+            {"type": "wisdom", "message": "The scroll fills your mind with ancient wisdom!"}
+        ]
+        
+        effect = random.choice(effects)
+        print(effect["message"])
+        
+        if effect["type"] == "heal":
+            self.player.heal(effect["amount"])
+        elif effect["type"] == "damage":
+            self.player.health = max(1, self.player.health - effect["amount"])
+            print(f"You now have {self.player.health} health.")
+        elif effect["type"] == "teleport":
+            # Teleport to a random discovered location
+            if self.player.discovered_locations:
+                new_loc = random.choice(self.player.discovered_locations)
+                self.player.current_location = new_loc
+                print(f"You find yourself back at the {self.locations[new_loc]['name']}!")
+                self.describe_current_location()
     
     def use_item(self, item_input):
         """Handle using items from inventory"""
@@ -342,7 +431,21 @@ class GameEngine:
         
         item = self.items[item_id]
         
-        # Use the item
+        # NEW: Handle specific item usage
+        if item_id == "rusty_key":
+            print("You hold up the rusty key. It seems to be meant for a special door...")
+            print("Try using 'unlock door' when you find the right door!")
+            return
+        
+        elif item_id == "torch":
+            if self.player.current_location in self.dark_areas:
+                print("You raise the torch high, its flickering light pushing back the darkness!")
+                print("The shadows retreat, revealing hidden details of this mysterious place.")
+            else:
+                print(item.get("use_message", f"You use the {item['name']}."))
+            return
+        
+        # Use the item normally
         print(item.get("use_message", f"You use the {item['name']}."))
         
         # Apply special effects
@@ -350,19 +453,64 @@ class GameEngine:
         if special_effect == "heal_player":
             self.player.heal(25)
         elif special_effect == "wisdom_boost":
-            print("You feel more knowledgeable!")
-        # Add more special effects as needed
+            print("You feel more knowledgeable! Your mind expands with ancient wisdom.")
+        elif special_effect == "random_effect":
+            self.apply_random_effect()
         
         # Remove if consumable
         if item.get("consumable", False):
             self.player.remove_item(item_id, self.items)
+    
+    def handle_unlock(self, thing):
+        """Handle unlock commands"""
+        if thing == "door":
+            if self.player.current_location == "start" and self.player.has_item("rusty_key"):
+                if self.player.has_item("glowing_crystal") and self.player.has_item("ancient_tome"):
+                    print("You insert the rusty key into a hidden keyhole in the wall!")
+                    print("The crystal provides the energy, the tome provides the knowledge,")
+                    print("and the key unlocks the final secret of this place!")
+                    print("\n🎉 CONGRATULATIONS! You've solved the mystery of the ancient realm!")
+                    self.game_won = True
+                    self.game_running = False
+                else:
+                    print("The key fits a hidden keyhole, but nothing happens...")
+                    print("Perhaps you need more mystical items to power this ancient magic?")
+            else:
+                print("You don't see any door to unlock here, or you don't have the right key.")
+        else:
+            print(f"You can't unlock {thing}.")
+    
+    def check_win_condition(self):
+        """Check if the player has won the game"""
+        # Win condition: Have all three major items and be in the starting room
+        required_items = ["rusty_key", "glowing_crystal", "ancient_tome"]
+        has_all_items = all(self.player.has_item(item) for item in required_items)
+        return has_all_items and self.player.current_location == "start"
+    
+    def handle_victory(self):
+        """Handle the victory condition"""
+        if not self.game_won:  # Only trigger once
+            print("\n" + "="*50)
+            print("🎉 QUEST COMPLETE! 🎉")
+            print("="*50)
+            print("You have gathered all the mystical items!")
+            print("The ancient realm recognizes you as a true adventurer.")
+            print("Type 'unlock door' to reveal the final secret!")
+            print("="*50)
     
     def show_help(self):
         """Display available commands to the player"""
         messages = self.story_config.get("messages", {})
         help_lines = messages.get("help_text", [
             "--- Available Commands ---",
-            "Type 'help' for this message again."
+            "Movement: north (n), south (s), east (e), west (w), up (u), down (d)",
+            "Actions: examine, open, read, look around, touch, unlock",
+            "Inventory: inventory (or 'i') - show your items",
+            "Items: use [item name] - use an item from inventory", 
+            "Stats: stats - show your character info",
+            "Other: help, look (or 'l'), quit",
+            "",
+            "🎯 GOAL: Collect the crystal, tome, and key, then return to the start!"
         ])
         
         for line in help_lines:

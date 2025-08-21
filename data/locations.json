@@ -1,22 +1,24 @@
 {
   "start": {
     "name": "Mysterious Room",
-    "description": "You find yourself in a mysterious room with dim lighting. There's a door to the NORTH and a chest in the corner.",
-    "first_visit_description": "You slowly open your eyes and find yourself in a mysterious room with dim lighting. How did you get here? There's a door to the NORTH and an old wooden chest in the corner.",
+    "description": "You find yourself in a mysterious room with dim lighting. Ancient symbols are carved into the stone walls. There's a door to the NORTH and a chest in the corner. This feels like an important place - perhaps where your quest will culminate.",
+    "first_visit_description": "You slowly open your eyes and find yourself in a mysterious room with dim lighting. How did you get here? Ancient symbols are carved into the stone walls, glowing faintly with inner light. There's a heavy wooden door to the NORTH and an old wooden chest in the corner. The air thrums with dormant magic.",
     "exits": {
       "north": "hallway"
     },
     "actions": {
       "examine chest": "examine_chest",
-      "open chest": "open_chest"
+      "open chest": "open_chest",
+      "examine symbols": "examine_start_symbols",
+      "examine walls": "examine_start_symbols"
     },
-    "items": ["rusty_key"],
+    "items": [],
     "visited": false
   },
   "hallway": {
     "name": "Long Hallway",
-    "description": "A long, narrow hallway stretches before you. Torches flicker on the stone walls, casting dancing shadows. You can go SOUTH back to where you came from, or continue EAST.",
-    "first_visit_description": "You step into a long, narrow hallway. The air is cooler here, and torches flicker on the stone walls, casting dancing shadows that seem to move with a life of their own. You can go SOUTH back to where you came from, or continue EAST into the unknown.",
+    "description": "A long, narrow hallway stretches before you. Torches flicker on the stone walls, casting dancing shadows. The corridor has an ancient, mystical atmosphere. You can go SOUTH back to the mysterious room, or continue EAST toward what looks like a library.",
+    "first_visit_description": "You step into a long, narrow hallway. The air is cooler here, and torches flicker on the stone walls, casting dancing shadows that seem to move with a life of their own. The stone is worn smooth by countless years and footsteps. You can go SOUTH back to where you came from, or continue EAST into the unknown.",
     "exits": {
       "south": "start",
       "east": "library"
@@ -24,52 +26,59 @@
     "actions": {
       "examine torches": "examine_torches",
       "take torch": "take_torch",
-      "get torch": "take_torch"
+      "get torch": "take_torch",
+      "examine shadows": "examine_hallway_shadows"
     },
     "items": [],
     "visited": false
   },
   "library": {
     "name": "Ancient Library",
-    "description": "You're in an ancient library filled with dusty books. Tall shelves stretch toward the vaulted ceiling. There's a WEST passage back to the hallway, and stairs going UP.",
-    "first_visit_description": "You enter an ancient library that takes your breath away. Tall shelves filled with countless dusty books stretch toward a vaulted ceiling lost in shadow. The air smells of old parchment and forgotten knowledge. There's a WEST passage back to the hallway, and wooden stairs going UP.",
+    "description": "You're in an ancient library filled with countless dusty books. Tall shelves stretch toward the vaulted ceiling, and the air smells of old parchment and forgotten knowledge. There's a WEST passage back to the hallway, stairs going UP to a tower, and something mysterious about the northern wall of bookshelves.",
+    "first_visit_description": "You enter an ancient library that takes your breath away. Tall shelves filled with countless dusty books stretch toward a vaulted ceiling lost in shadow. Motes of dust dance in shafts of light from high windows. The air smells of old parchment, leather bindings, and forgotten knowledge. There's a WEST passage back to the hallway, and wooden stairs going UP. The northern wall of bookshelves looks particularly interesting.",
     "exits": {
       "west": "hallway",
       "up": "tower"
     },
     "actions": {
       "read book": "read_book",
-      "examine shelves": "examine_shelves"
+      "examine shelves": "examine_shelves",
+      "examine books": "examine_library_books",
+      "study books": "read_book"
     },
-    "items": ["ancient_tome"],
+    "items": [],
     "visited": false
   },
   "tower": {
     "name": "High Tower",
-    "description": "You've climbed to the top of a tower. The view is breathtaking! You can see the entire realm from here. Stairs lead DOWN.",
-    "first_visit_description": "You emerge onto the top of a high tower, and the view takes your breath away! From this height, you can see the entire realm spread out below you - rolling hills, dense forests, and distant mountains. The wind whispers ancient secrets as it flows around the tower. Stairs lead DOWN.",
+    "description": "You've climbed to the top of a tower with breathtaking views in every direction. The entire realm spreads out below you like a living map. A gentle breeze carries the scent of adventure. Stairs lead DOWN back to the library.",
+    "first_visit_description": "You emerge onto the top of a high tower, and the view takes your breath away! From this height, you can see the entire realm spread out below you - rolling hills dotted with ancient ruins, dense forests hiding secrets, distant mountains capped with eternal snow, and a shimmering lake that reflects the sky like a mirror. The wind whispers ancient secrets as it flows around the tower. Stairs lead DOWN to the library.",
     "exits": {
       "down": "library"
     },
     "actions": {
       "look around": "tower_view",
-      "examine view": "tower_view"
+      "examine view": "tower_view",
+      "study view": "tower_view",
+      "enjoy view": "tower_view"
     },
     "items": [],
     "visited": false
   },
   "secret_chamber": {
     "name": "Secret Chamber",
-    "description": "A hidden chamber revealed behind the bookshelf. Strange glowing crystals provide an eerie blue light. There's a WEST passage back to the library.",
-    "first_visit_description": "The bookshelf swings open to reveal a secret chamber! Strange glowing crystals embedded in the walls provide an eerie blue light that pulses gently. The air hums with mysterious energy. There's a WEST passage back to the library.",
+    "description": "A hidden chamber revealed behind the bookshelf. Strange glowing crystals embedded in the walls provide an eerie blue light that pulses gently. The air hums with mysterious magical energy. There's a SOUTH passage back to the library. This place feels like the heart of an ancient mystery.",
+    "first_visit_description": "The bookshelf swings open to reveal a secret chamber that defies explanation! Strange glowing crystals embedded in the walls provide an eerie blue light that pulses like a slow heartbeat. The air itself hums with mysterious energy that makes your skin tingle. Arcane symbols are carved into every surface, glowing faintly in response to your presence. There's a SOUTH passage back to the library, but this place clearly holds powerful secrets.",
     "exits": {
-      "west": "library"
+      "south": "library"
     },
     "actions": {
       "examine crystals": "examine_crystals",
-      "touch crystals": "touch_crystals"
+      "touch crystals": "touch_crystals",
+      "study crystals": "examine_crystals",
+      "examine symbols": "examine_chamber_symbols"
     },
-    "items": ["glowing_crystal"],
+    "items": [],
     "visited": false
   }
 }
