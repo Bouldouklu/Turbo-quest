@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """
-Console Dot Adventure - A Text Adventure Engine
-A simple but expandable framework for creating text-based adventures
-Now powered by JSON data files for easy story modification!
-FIXED VERSION: Addresses item duplication, action state tracking, and other issues
+Turbo's Training Mission - A Heartwarming Pet Adventure
+A special text adventure about Maxwell's mysterious intuition and Turbo's quest
+Built with love for a dear friend expecting a wonderful surprise!
 """
 
 import json
@@ -13,29 +12,35 @@ import random
 
 class Player:
     """
-    Represents the player character with basic stats and inventory
+    Represents Turbo, the adventurous German Shepherd hybrid
     """
-    def __init__(self, name, starting_health=100):
+    def __init__(self, name="Turbo", starting_health=100):
         self.name = name
         self.health = starting_health
         self.max_health = starting_health
-        self.inventory = []
-        self.current_location = None  # Will be set by game engine
-        self.discovered_locations = []  # Track which locations player has found
-        # NEW: Track completed actions to prevent duplication
-        self.completed_actions = []  
+        self.inventory = []  # Items Turbo is carrying in his mouth or has access to
+        self.current_location = None  # Current room/area
+        self.discovered_locations = []  # Places Turbo has visited
+        self.completed_actions = []  # Actions completed to prevent duplication
+        self.quest_items_found = 0  # Track progress toward revelation
     
     def add_item(self, item_id, items_data):
-        """Add an item to the player's inventory"""
+        """Add an item to Turbo's inventory (carrying in mouth or nearby)"""
         if item_id in items_data:
             item = items_data[item_id]
             self.inventory.append(item_id)
-            print(item.get("pickup_message", f"You picked up: {item['name']}"))
+            print(item.get("pickup_message", f"You found: {item['name']}"))
+            
+            # Check if this is a quest item for tracking progress
+            if item.get("special_effect") == "quest_item":
+                self.quest_items_found += 1
+                print(f"\n🎾 Progress: You've found {self.quest_items_found}/3 special items!")
+                
         else:
             print(f"Error: Item '{item_id}' not found in game data.")
     
     def remove_item(self, item_id, items_data):
-        """Remove an item from the player's inventory"""
+        """Remove an item from Turbo's inventory"""
         if item_id in self.inventory:
             self.inventory.remove(item_id)
             if item_id in items_data:
@@ -43,17 +48,17 @@ class Player:
                 print(item.get("use_message", f"You used: {item['name']}"))
             return True
         else:
-            print(f"You don't have that item.")
+            print(f"You don't have that item with you.")
             return False
     
     def has_item(self, item_id):
-        """Check if player has a specific item"""
+        """Check if Turbo has a specific item"""
         return item_id in self.inventory
     
     def show_inventory(self, items_data):
-        """Display the player's current inventory"""
+        """Display what Turbo is currently carrying"""
         if self.inventory:
-            print(f"\n{self.name}'s Inventory:")
+            print(f"\n🎾 {self.name}'s Current Items:")
             for item_id in self.inventory:
                 if item_id in items_data:
                     item = items_data[item_id]
@@ -61,31 +66,32 @@ class Player:
                 else:
                     print(f"  - {item_id} (unknown item)")
         else:
-            print("\nYour inventory is empty.")
+            print(f"\n{self.name} isn't carrying anything right now.")
     
     def show_stats(self):
-        """Display player's current stats"""
-        print(f"\n--- {self.name}'s Stats ---")
-        print(f"Health: {self.health}/{self.max_health}")
+        """Display Turbo's current status"""
+        print(f"\n--- {self.name}'s Status ---")
+        print(f"Energy: {self.health}/{self.max_health} 🐕")
         print(f"Location: {self.current_location}")
-        print(f"Items: {len(self.inventory)}")
-        print(f"Locations Discovered: {len(self.discovered_locations)}")
-        print(f"Actions Completed: {len(self.completed_actions)}")
+        print(f"Items Found: {len(self.inventory)}")
+        print(f"Quest Progress: {self.quest_items_found}/3 special items")
+        print(f"Areas Explored: {len(self.discovered_locations)}")
+        print(f"Tasks Completed: {len(self.completed_actions)}")
     
     def heal(self, amount):
-        """Heal the player by specified amount"""
+        """Restore Turbo's energy"""
         old_health = self.health
         self.health = min(self.health + amount, self.max_health)
         healed = self.health - old_health
         if healed > 0:
-            print(f"You feel better! Healed {healed} health points.")
+            print(f"You feel more energetic! Restored {healed} energy points. 🐕")
         else:
-            print("You're already at full health!")
+            print("You're already full of energy!")
 
 
 class DataLoader:
     """
-    Handles loading and managing all game data from JSON files
+    Handles loading all game data from JSON files
     """
     def __init__(self, data_directory="data"):
         self.data_dir = data_directory
@@ -99,10 +105,10 @@ class DataLoader:
             self.locations = self.load_json_file("locations.json")
             self.items = self.load_json_file("items.json")
             self.story_config = self.load_json_file("story.json")
-            print("Game data loaded successfully!")
+            print("🎮 Game data loaded successfully!")
             return True
         except Exception as e:
-            print(f"Error loading game data: {e}")
+            print(f"❌ Error loading game data: {e}")
             print("Make sure you have the 'data' folder with all JSON files!")
             return False
     
@@ -120,17 +126,15 @@ class DataLoader:
 
 class GameEngine:
     """
-    Main game engine that handles the game loop, commands, and story flow
-    Now loads all content from JSON files and fixes loopholes!
+    Main game engine for Turbo's Training Mission
+    Handles the game loop, commands, and Maxwell's mysterious guidance
     """
     def __init__(self):
         self.player = None
         self.game_running = True
         self.data_loader = DataLoader()
-        
-        # NEW: Track game state
         self.game_won = False
-        self.dark_areas = ["secret_chamber"]  # Areas that need torch
+        self.revelation_triggered = False
         
         # Load all game data from JSON files
         if not self.data_loader.load_all_data():
@@ -143,35 +147,32 @@ class GameEngine:
         self.story_config = self.data_loader.story_config
     
     def start_game(self):
-        """Initialize the game and start the main game loop"""
+        """Initialize and start Turbo's adventure"""
         intro = self.story_config.get("intro_text", {})
         game_info = self.story_config.get("game_info", {})
         
-        print("=" * 50)
-        print(intro.get("welcome_message", "Welcome to Console.Adventure!"))
-        print("=" * 50)
+        print("=" * 60)
+        print(intro.get("welcome_message", "🐕 Welcome to Turbo's Training Mission! 🐕"))
+        print("=" * 60)
         print(intro.get("game_description", "A mysterious adventure awaits..."))
         print()
         
-        # Get player name
-        name_prompt = intro.get("name_prompt", "What's your name, adventurer?")
-        player_name = input(f"{name_prompt} ").strip()
-        if not player_name:
-            player_name = "Unknown Adventurer"
+        # Simple start prompt for our specific story
+        input(intro.get("name_prompt", "Press Enter to begin Turbo's adventure..."))
         
-        # Create player with settings from JSON
+        # Create Turbo with settings from JSON
         settings = self.story_config.get("game_settings", {})
         starting_health = settings.get("starting_health", 100)
-        self.player = Player(player_name, starting_health)
-        self.player.max_health = settings.get("max_health", 150)
+        self.player = Player("Turbo", starting_health)
+        self.player.max_health = settings.get("max_health", 100)
         
         # Set starting location
-        starting_location = settings.get("starting_location", "start")
+        starting_location = settings.get("starting_location", "living_room")
         self.player.current_location = starting_location
         
-        print(f"\nWelcome, {self.player.name}!")
+        print(f"\n🐕 You are Turbo, and something mysterious is happening...")
         print(intro.get("instruction_text", "Type 'help' for commands."))
-        print("\n🎯 QUEST GOAL: Find all the crystals and return to unlock the final mystery!")
+        print("\n🎯 Follow Maxwell's guidance and discover what he's trying to show you!")
         
         # Show starting location
         self.describe_current_location()
@@ -180,20 +181,20 @@ class GameEngine:
         self.game_loop()
     
     def game_loop(self):
-        """Main game loop - keeps the game running until player quits"""
+        """Main game loop - keeps Turbo's adventure running"""
         while self.game_running:
-            # Check win condition
-            if not self.game_won and self.check_win_condition():
-                self.handle_victory()
+            # Check if we should trigger the final revelation
+            if not self.revelation_triggered and self.check_revelation_condition():
+                self.trigger_final_revelation()
             
             # Get player input
-            user_input = input("\n> ").strip().lower()
+            user_input = input("\n🐕 > ").strip().lower()
             
             # Process the command
             self.process_command(user_input)
     
     def process_command(self, command):
-        """Process player commands and execute appropriate actions"""
+        """Process Turbo's commands and execute appropriate actions"""
         # Expand abbreviated directions
         direction_aliases = {
             'n': 'north', 's': 'south', 'e': 'east', 'w': 'west',
@@ -232,10 +233,28 @@ class GameEngine:
             self.use_item(item_name)
             return
         
-        # NEW: Handle "unlock [thing]" commands
-        elif command.startswith("unlock "):
-            thing = command[7:].strip()
-            self.handle_unlock(thing)
+        # Handle special dog commands
+        elif command.startswith("sniff "):
+            area = command[6:].strip()
+            self.handle_sniff_command(area)
+            return
+        
+        elif command.startswith("dig "):
+            location = command[4:].strip()
+            self.handle_dig_command(location)
+            return
+        
+        elif command.startswith("jump "):
+            target = command[5:].strip()
+            self.handle_jump_command(target)
+            return
+        
+        # Special command to trigger final revelation when ready
+        elif command == "realize" or command == "understand":
+            if self.check_revelation_condition():
+                self.trigger_final_revelation()
+            else:
+                print("You sense something important is happening, but the picture isn't complete yet...")
             return
         
         # Location-specific commands
@@ -257,34 +276,30 @@ class GameEngine:
         
         # Command not recognized
         messages = self.story_config.get("messages", {})
-        invalid_msg = messages.get("invalid_command", "I don't understand that command.")
+        invalid_msg = messages.get("invalid_command", "You tilt your head, confused.")
         print(invalid_msg)
     
     def move_player(self, new_location):
-        """Move the player to a new location"""
+        """Move Turbo to a new location"""
         if new_location in self.locations:
-            # NEW: Check if area requires torch
-            if new_location in self.dark_areas and not self.player.has_item("torch"):
-                print("It's too dark to go that way! You need a torch to light your way.")
-                return
-            
             self.player.current_location = new_location
             
             # Add to discovered locations if not already there
             if new_location not in self.player.discovered_locations:
                 self.player.discovered_locations.append(new_location)
             
-            print(f"\nYou move to the {self.locations[new_location]['name']}...")
+            location_name = self.locations[new_location]['name']
+            print(f"\n🐕 You move to the {location_name}...")
             self.describe_current_location()
         else:
             print(f"Error: Location '{new_location}' not found!")
     
     def describe_current_location(self):
-        """Show the description of the current location"""
+        """Show the description of Turbo's current location"""
         location_id = self.player.current_location
         location = self.locations[location_id]
         
-        print(f"\n--- {location['name']} ---")
+        print(f"\n--- 🏠 {location['name']} ---")
         
         # Show first visit description if available and not visited
         if not location.get("visited", False) and "first_visit_description" in location:
@@ -292,18 +307,10 @@ class GameEngine:
         else:
             print(location["description"])
         
-        # NEW: Check for special conditions
-        if location_id == "start" and self.player.has_item("glowing_crystal") and self.player.has_item("ancient_tome"):
-            print("\n✨ The room suddenly feels different. The crystal and tome are resonating with each other!")
-            if "unlock door" not in [action for action in location.get("actions", {})]:
-                # Add new action dynamically
-                location.setdefault("actions", {})["unlock door"] = "final_unlock"
-                print("🔓 You can now 'unlock door' to reveal the final secret!")
-        
         # Show available exits
         exits = location.get("exits", {})
         if exits:
-            print("\nYou can go:")
+            print("\n🚪 You can go:")
             for direction in exits:
                 destination = self.locations.get(exits[direction], {}).get("name", exits[direction])
                 print(f"  - {direction} (to {destination})")
@@ -311,7 +318,7 @@ class GameEngine:
         # Show available actions
         actions = location.get("actions", {})
         if actions:
-            print("\nYou can also:")
+            print("\n🔍 You can also:")
             for action in actions:
                 print(f"  - {action}")
         
@@ -328,7 +335,7 @@ class GameEngine:
         
         action = special_actions[action_id]
         
-        # NEW: Check if action was already completed and shouldn't be repeated
+        # Check if action was already completed and shouldn't be repeated
         if action_id in self.player.completed_actions:
             repeat_message = action.get("repeat_message", "You've already done that.")
             print(repeat_message)
@@ -352,7 +359,7 @@ class GameEngine:
         for effect in effects:
             self.apply_effect(effect)
         
-        # NEW: Mark action as completed if it shouldn't be repeated
+        # Mark action as completed if it shouldn't be repeated
         if action.get("repeatable", False) == False:
             self.player.completed_actions.append(action_id)
     
@@ -369,53 +376,81 @@ class GameEngine:
             amount = effect.get("amount", 10)
             self.player.heal(amount)
         
-        elif effect_type == "reveal_location":
-            location_id = effect.get("location")
-            direction = effect.get("direction", "secret")  # NEW: Configurable direction
-            if location_id and location_id in self.locations:
-                # Add a new exit to current location
-                current_loc = self.locations[self.player.current_location]
-                if "exits" not in current_loc:
-                    current_loc["exits"] = {}
-                
-                current_loc["exits"][direction] = location_id
-                dest_name = self.locations[location_id].get("name", location_id)
-                print(f"A secret passage has been revealed! You can now go '{direction}' to the {dest_name}.")
-        
-        # NEW: Add more effect types
-        elif effect_type == "random_effect":
-            self.apply_random_effect()
+        elif effect_type == "trigger_revelation":
+            self.revelation_triggered = True
         
         elif effect_type == "win_game":
             self.game_won = True
+            self.game_running = False
     
-    def apply_random_effect(self):
-        """Apply a random effect from the mysterious scroll"""
-        effects = [
-            {"type": "heal", "amount": 15, "message": "The scroll glows and heals your wounds!"},
-            {"type": "damage", "amount": 5, "message": "The scroll backfires and hurts you slightly!"},
-            {"type": "teleport", "message": "The scroll teleports you to a random location!"},
-            {"type": "wisdom", "message": "The scroll fills your mind with ancient wisdom!"}
-        ]
-        
-        effect = random.choice(effects)
-        print(effect["message"])
-        
-        if effect["type"] == "heal":
-            self.player.heal(effect["amount"])
-        elif effect["type"] == "damage":
-            self.player.health = max(1, self.player.health - effect["amount"])
-            print(f"You now have {self.player.health} health.")
-        elif effect["type"] == "teleport":
-            # Teleport to a random discovered location
-            if self.player.discovered_locations:
-                new_loc = random.choice(self.player.discovered_locations)
-                self.player.current_location = new_loc
-                print(f"You find yourself back at the {self.locations[new_loc]['name']}!")
-                self.describe_current_location()
+    def handle_sniff_command(self, area):
+        """Handle sniffing commands"""
+        # Map sniff commands to existing actions
+        current_location = self.player.current_location
+        if area == "around" or area == "":
+            # Try to find a sniff action for current location
+            sniff_action = f"sniff_{current_location}"
+            if sniff_action in self.story_config.get("special_actions", {}):
+                self.handle_special_action(sniff_action)
+            else:
+                print("You sniff around carefully but don't notice anything particularly interesting right now.")
+        else:
+            print(f"You sniff at {area}, but don't detect anything special.")
+    
+    def handle_dig_command(self, location):
+        """Handle digging commands"""
+        if "garden" in self.player.current_location or "balcony" in self.player.current_location:
+            if "behind plants" in location or "rhododendron" in location or location == "here":
+                self.handle_special_action("dig_behind_plants")
+            else:
+                print("You dig enthusiastically but don't find anything in that spot.")
+        else:
+            print("This doesn't seem like a good place for digging.")
+    
+    def handle_jump_command(self, target):
+        """Handle jumping commands"""
+        if "counter" in target and "kitchen" in self.player.current_location:
+            self.handle_special_action("jump_kitchen_counter")
+        else:
+            print(f"You can't jump on {target} from here, or it's not safe to do so.")
+    
+    def check_revelation_condition(self):
+        """Check if Turbo has found all three quest items for the revelation"""
+        required_items = ["child_mtb_helmet", "child_mtb_gloves", "small_mtb_bike"]
+        return all(self.player.has_item(item) for item in required_items)
+    
+    def trigger_final_revelation(self):
+        """Trigger the final revelation scene"""
+        if not self.revelation_triggered:
+            print("\n" + "="*60)
+            print("🎉 AMAZING REALIZATION! 🎉")
+            print("="*60)
+            
+            print("You sit down and look at all the items you've found...")
+            print("The tiny helmet... the small gloves... the miniature bike...")
+            print("\nSuddenly, your tail starts wagging uncontrollably!")
+            print("These aren't just random objects - they're all CHILD-SIZED!")
+            print("\nMaxwell appears beside you, purring loudly, his green eyes")
+            print("twinkling with satisfaction. He's been trying to tell you")
+            print("something wonderful all along...")
+            print("\n🍼 A NEW LITTLE FAMILY MEMBER IS COMING! 🍼")
+            print("\nSomeone tiny enough to need these small adventure items!")
+            print("Your family is growing, and Maxwell's mysterious cat")
+            print("intuition knew before anyone else!")
+            print("\nYour heart fills with joy and excitement. Soon there")
+            print("will be a small human to protect, play with, and")
+            print("eventually teach about mountain biking adventures!")
+            print("="*60)
+            
+            self.revelation_triggered = True
+            self.game_won = True
+            
+            print("\n🎾 Congratulations! You've solved Maxwell's mystery!")
+            print("Thanks for playing Turbo's Training Mission!")
+            print("\nType 'quit' to end the adventure.")
     
     def use_item(self, item_input):
-        """Handle using items from inventory"""
+        """Handle using items from Turbo's inventory"""
         # Find item by name (partial matching)
         item_id = None
         for inv_item_id in self.player.inventory:
@@ -431,86 +466,30 @@ class GameEngine:
         
         item = self.items[item_id]
         
-        # NEW: Handle specific item usage
-        if item_id == "rusty_key":
-            print("You hold up the rusty key. It seems to be meant for a special door...")
-            print("Try using 'unlock door' when you find the right door!")
-            return
-        
-        elif item_id == "torch":
-            if self.player.current_location in self.dark_areas:
-                print("You raise the torch high, its flickering light pushing back the darkness!")
-                print("The shadows retreat, revealing hidden details of this mysterious place.")
-            else:
-                print(item.get("use_message", f"You use the {item['name']}."))
-            return
-        
-        # Use the item normally
+        # Handle specific item usage
         print(item.get("use_message", f"You use the {item['name']}."))
         
         # Apply special effects
         special_effect = item.get("special_effect")
-        if special_effect == "heal_player":
-            self.player.heal(25)
-        elif special_effect == "wisdom_boost":
-            print("You feel more knowledgeable! Your mind expands with ancient wisdom.")
-        elif special_effect == "random_effect":
-            self.apply_random_effect()
+        if special_effect == "final_revelation":
+            if self.check_revelation_condition():
+                self.trigger_final_revelation()
         
         # Remove if consumable
         if item.get("consumable", False):
             self.player.remove_item(item_id, self.items)
     
-    def handle_unlock(self, thing):
-        """Handle unlock commands"""
-        if thing == "door":
-            if self.player.current_location == "start" and self.player.has_item("rusty_key"):
-                if self.player.has_item("glowing_crystal") and self.player.has_item("ancient_tome"):
-                    print("You insert the rusty key into a hidden keyhole in the wall!")
-                    print("The crystal provides the energy, the tome provides the knowledge,")
-                    print("and the key unlocks the final secret of this place!")
-                    print("\n🎉 CONGRATULATIONS! You've solved the mystery of the ancient realm!")
-                    self.game_won = True
-                    self.game_running = False
-                else:
-                    print("The key fits a hidden keyhole, but nothing happens...")
-                    print("Perhaps you need more mystical items to power this ancient magic?")
-            else:
-                print("You don't see any door to unlock here, or you don't have the right key.")
-        else:
-            print(f"You can't unlock {thing}.")
-    
-    def check_win_condition(self):
-        """Check if the player has won the game"""
-        # Win condition: Have all three major items and be in the starting room
-        required_items = ["rusty_key", "glowing_crystal", "ancient_tome"]
-        has_all_items = all(self.player.has_item(item) for item in required_items)
-        return has_all_items and self.player.current_location == "start"
-    
-    def handle_victory(self):
-        """Handle the victory condition"""
-        if not self.game_won:  # Only trigger once
-            print("\n" + "="*50)
-            print("🎉 QUEST COMPLETE! 🎉")
-            print("="*50)
-            print("You have gathered all the mystical items!")
-            print("The ancient realm recognizes you as a true adventurer.")
-            print("Type 'unlock door' to reveal the final secret!")
-            print("="*50)
-    
     def show_help(self):
-        """Display available commands to the player"""
+        """Display available commands to Turbo"""
         messages = self.story_config.get("messages", {})
         help_lines = messages.get("help_text", [
-            "--- Available Commands ---",
+            "--- Turbo's Commands ---",
             "Movement: north (n), south (s), east (e), west (w), up (u), down (d)",
-            "Actions: examine, open, read, look around, touch, unlock",
-            "Inventory: inventory (or 'i') - show your items",
-            "Items: use [item name] - use an item from inventory", 
-            "Stats: stats - show your character info",
-            "Other: help, look (or 'l'), quit",
-            "",
-            "🎯 GOAL: Collect the crystal, tome, and key, then return to the start!"
+            "Dog Actions: sniff around, examine [thing], dig [where], jump [where]",
+            "Inventory: inventory (or 'i') - show what you're carrying",
+            "Items: use [item name] - use something you've found",
+            "Stats: stats - check your status",
+            "Other: help, look (or 'l'), quit"
         ])
         
         for line in help_lines:
@@ -519,14 +498,15 @@ class GameEngine:
 
 def main():
     """
-    Main function - creates and starts the game
+    Main function - creates and starts Turbo's Training Mission
     """
-    print("Loading Console.Adventure...")
+    print("🐕 Loading Turbo's Training Mission...")
+    print("🐱 Maxwell is waiting with mysterious guidance...")
     
     # Create a new game instance
     game = GameEngine()
     
-    # Start the game
+    # Start the adventure
     game.start_game()
 
 

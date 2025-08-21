@@ -1,82 +1,112 @@
 {
-  "start": {
-    "name": "Mysterious Room",
-    "description": "You find yourself in a mysterious room with dim lighting. Ancient symbols are carved into the stone walls. There's a door to the NORTH and a chest in the corner. This feels like an important place - perhaps where your quest will culminate.",
-    "first_visit_description": "You slowly open your eyes and find yourself in a mysterious room with dim lighting. How did you get here? Ancient symbols are carved into the stone walls, glowing faintly with inner light. There's a heavy wooden door to the NORTH and an old wooden chest in the corner. The air thrums with dormant magic.",
+  "living_room": {
+    "name": "Living Room",
+    "description": "You're in the cozy living room where you and Maxwell usually relax. Sunlight streams through the windows, and your favorite dog bed sits in the corner. Maxwell is sitting by the window, staring intently at something you can't see. His tail is twitching in that mysterious way that means he knows something important.",
+    "first_visit_description": "You wake up from your afternoon nap and notice Maxwell behaving strangely. The gray and white cat is sitting perfectly still by the large window, his green eyes focused on... nothing visible. His ears are perked forward, and his tail does that slow, deliberate twitch that means he's thinking about something important. The living room feels different today - charged with anticipation.",
     "exits": {
-      "north": "hallway"
+      "north": "kitchen",
+      "east": "bedroom", 
+      "south": "balcony"
     },
     "actions": {
-      "examine chest": "examine_chest",
-      "open chest": "open_chest",
-      "examine symbols": "examine_start_symbols",
-      "examine walls": "examine_start_symbols"
+      "examine maxwell": "examine_maxwell_start",
+      "look at maxwell": "examine_maxwell_start",
+      "examine window": "examine_living_window",
+      "examine dog bed": "examine_dog_bed",
+      "sniff around": "sniff_living_room"
     },
     "items": [],
     "visited": false
   },
-  "hallway": {
-    "name": "Long Hallway",
-    "description": "A long, narrow hallway stretches before you. Torches flicker on the stone walls, casting dancing shadows. The corridor has an ancient, mystical atmosphere. You can go SOUTH back to the mysterious room, or continue EAST toward what looks like a library.",
-    "first_visit_description": "You step into a long, narrow hallway. The air is cooler here, and torches flicker on the stone walls, casting dancing shadows that seem to move with a life of their own. The stone is worn smooth by countless years and footsteps. You can go SOUTH back to where you came from, or continue EAST into the unknown.",
+  "kitchen": {
+    "name": "Kitchen",
+    "description": "The kitchen smells of familiar scents - kibble, treats, and the lingering aroma of human food. High cabinets line the walls, some with handles you could potentially reach if you're clever. Maxwell sits on the counter, which he's not supposed to do, staring at one particular cabinet with unusual intensity.",
+    "first_visit_description": "You pad into the kitchen, your claws clicking softly on the tile floor. The room smells like home - your food bowl, treats, and the comforting scents of family meals. But Maxwell is here, sitting boldly on the forbidden counter, his yellow-green eyes fixed on a high cabinet with unwavering focus. He glances at you briefly, then back at the cabinet, as if trying to tell you something important.",
     "exits": {
-      "south": "start",
-      "east": "library"
+      "south": "living_room",
+      "east": "storage_room"
     },
     "actions": {
-      "examine torches": "examine_torches",
-      "take torch": "take_torch",
-      "get torch": "take_torch",
-      "examine shadows": "examine_hallway_shadows"
+      "examine maxwell": "examine_maxwell_kitchen",
+      "examine cabinet": "examine_high_cabinet", 
+      "examine cabinets": "examine_kitchen_cabinets",
+      "open cabinet": "get_step_stool_action",
+      "open lower cabinet": "get_step_stool_action",
+      "jump on counter": "jump_kitchen_counter",
+      "examine treats": "examine_treat_jar",
+      "sniff cabinet": "sniff_high_cabinet"
     },
     "items": [],
     "visited": false
   },
-  "library": {
-    "name": "Ancient Library",
-    "description": "You're in an ancient library filled with countless dusty books. Tall shelves stretch toward the vaulted ceiling, and the air smells of old parchment and forgotten knowledge. There's a WEST passage back to the hallway, stairs going UP to a tower, and something mysterious about the northern wall of bookshelves.",
-    "first_visit_description": "You enter an ancient library that takes your breath away. Tall shelves filled with countless dusty books stretch toward a vaulted ceiling lost in shadow. Motes of dust dance in shafts of light from high windows. The air smells of old parchment, leather bindings, and forgotten knowledge. There's a WEST passage back to the hallway, and wooden stairs going UP. The northern wall of bookshelves looks particularly interesting.",
+  "bedroom": {
+    "name": "Bedroom",
+    "description": "The humans' bedroom is quiet and peaceful. The big bed dominates the room, and there's a closet with sliding doors that sometimes hide interesting things. Sunlight filters through curtains, creating warm patches on the floor where Maxwell likes to nap - but today he's not napping. He's investigating something under the bed.",
+    "first_visit_description": "You enter the bedroom where your humans sleep. It's quiet and serene, with the large bed you sometimes sneak onto when no one's looking. The closet doors are slightly ajar, and morning light creates golden rectangles on the carpet. Maxwell emerges from under the bed, a dusty whisker indicating he's been exploring spaces too small for you. He looks at you meaningfully, then back under the bed.",
     "exits": {
-      "west": "hallway",
-      "up": "tower"
+      "west": "living_room"
     },
     "actions": {
-      "read book": "read_book",
-      "examine shelves": "examine_shelves",
-      "examine books": "examine_library_books",
-      "study books": "read_book"
+      "examine maxwell": "examine_maxwell_bedroom",
+      "look under bed": "examine_under_bed",
+      "examine closet": "examine_bedroom_closet",
+      "examine bed": "examine_big_bed",
+      "sniff around": "sniff_bedroom"
     },
     "items": [],
     "visited": false
   },
-  "tower": {
-    "name": "High Tower",
-    "description": "You've climbed to the top of a tower with breathtaking views in every direction. The entire realm spreads out below you like a living map. A gentle breeze carries the scent of adventure. Stairs lead DOWN back to the library.",
-    "first_visit_description": "You emerge onto the top of a high tower, and the view takes your breath away! From this height, you can see the entire realm spread out below you - rolling hills dotted with ancient ruins, dense forests hiding secrets, distant mountains capped with eternal snow, and a shimmering lake that reflects the sky like a mirror. The wind whispers ancient secrets as it flows around the tower. Stairs lead DOWN to the library.",
+  "balcony": {
+    "name": "Balcony",
+    "description": "The small balcony overlooks the garden below. Plant pots line the railing, and there's a small storage box where garden tools are kept. The fresh air carries scents from the garden - earth, plants, and something else that makes your nose twitch with curiosity. Maxwell sits by the railing, looking down at the garden with intense focus.",
+    "first_visit_description": "You step onto the balcony and immediately your senses come alive with outdoor scents. The small space is filled with plant pots and garden tools, and the view over the garden below is spectacular for a dog's nose - so many interesting smells! Maxwell is perched by the railing like a furry sentinel, his gaze fixed on something specific in the garden below. The wind ruffles his fur as he remains perfectly still, concentrating.",
     "exits": {
-      "down": "library"
+      "north": "living_room",
+      "down": "garden"
     },
     "actions": {
-      "look around": "tower_view",
-      "examine view": "tower_view",
-      "study view": "tower_view",
-      "enjoy view": "tower_view"
+      "examine maxwell": "examine_maxwell_balcony",
+      "look at garden": "examine_garden_from_balcony",
+      "examine storage box": "examine_balcony_box",
+      "examine plants": "examine_balcony_plants",
+      "sniff air": "sniff_balcony_air"
     },
     "items": [],
     "visited": false
   },
-  "secret_chamber": {
-    "name": "Secret Chamber",
-    "description": "A hidden chamber revealed behind the bookshelf. Strange glowing crystals embedded in the walls provide an eerie blue light that pulses gently. The air hums with mysterious magical energy. There's a SOUTH passage back to the library. This place feels like the heart of an ancient mystery.",
-    "first_visit_description": "The bookshelf swings open to reveal a secret chamber that defies explanation! Strange glowing crystals embedded in the walls provide an eerie blue light that pulses like a slow heartbeat. The air itself hums with mysterious energy that makes your skin tingle. Arcane symbols are carved into every surface, glowing faintly in response to your presence. There's a SOUTH passage back to the library, but this place clearly holds powerful secrets.",
+  "garden": {
+    "name": "Garden",
+    "description": "The garden is your outdoor paradise - grass to run on, bushes to explore, and dozens of fascinating scents. There are flower beds, a small tool shed, and various hiding spots you've discovered over the years. Maxwell appears from behind a large plant, dirt on his paws, looking at you with that 'I found something important' expression.",
+    "first_visit_description": "You bound into the garden, your favorite outdoor space! The grass feels soft under your paws, and every direction offers new scents and adventures. Flower beds line the edges, the small tool shed sits in the corner, and there are countless spots perfect for burying treasures or finding them. Maxwell emerges from behind a large rhododendron, his usually pristine paws now dusty with soil, giving you a look that clearly says 'pay attention - this is important.'",
     "exits": {
-      "south": "library"
+      "up": "balcony"
     },
     "actions": {
-      "examine crystals": "examine_crystals",
-      "touch crystals": "touch_crystals",
-      "study crystals": "examine_crystals",
-      "examine symbols": "examine_chamber_symbols"
+      "examine maxwell": "examine_maxwell_garden",
+      "examine tool shed": "examine_garden_shed",
+      "open shed": "unlock_garden_shed",
+      "unlock shed": "unlock_garden_shed",
+      "examine flower beds": "examine_flower_beds",
+      "dig behind plants": "dig_behind_plants",
+      "sniff around": "sniff_garden",
+      "examine rhododendron": "examine_big_plant"
+    },
+    "items": [],
+    "visited": false
+  },
+  "storage_room": {
+    "name": "Storage Room",
+    "description": "The storage room is filled with boxes, old furniture, and items the humans don't use every day. It's dimmer here, with only a small window providing light. The air smells of dust and forgotten things. This feels like a place where important items might be hidden away, waiting to be discovered.",
+    "first_visit_description": "You push through the door into the storage room, a space that always feels mysterious and full of possibilities. Boxes are stacked along the walls, old furniture is covered with sheets, and the air has that dusty, patient smell of things waiting to be rediscovered. Light from a small window creates interesting shadows and highlights. This room feels like it's keeping secrets.",
+    "exits": {
+      "west": "kitchen"
+    },
+    "actions": {
+      "examine boxes": "examine_storage_boxes",
+      "examine furniture": "examine_covered_furniture", 
+      "sniff around": "sniff_storage_room",
+      "look behind boxes": "look_behind_storage_boxes",
+      "examine window": "examine_storage_window"
     },
     "items": [],
     "visited": false

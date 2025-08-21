@@ -1,163 +1,332 @@
 {
   "game_info": {
-    "title": "Console.Adventure",
-    "version": "1.1",
-    "author": "Your Name Here",
-    "description": "A mysterious adventure in an ancient realm"
+    "title": "Turbo's Training Mission",
+    "version": "1.0",
+    "author": "Made with Love for a Special Friend",
+    "description": "A heartwarming adventure about Maxwell's mysterious intuition and Turbo's quest to prepare for something wonderful"
   },
   "game_settings": {
-    "starting_location": "start",
+    "starting_location": "living_room",
     "starting_health": 100,
-    "max_health": 150,
+    "max_health": 100,
     "enable_combat": false,
-    "enable_magic": true
+    "enable_magic": false
   },
   "intro_text": {
-    "welcome_message": "Welcome to Console.Adventure!",
-    "game_description": "You find yourself in a mysterious realm filled with ancient secrets and forgotten magic. Your quest: gather the three mystical artifacts and unlock the final secret!",
-    "instruction_text": "Type 'help' for available commands. Type 'quit' to exit the game.",
-    "name_prompt": "What's your name, adventurer?"
+    "welcome_message": "🐕 Welcome to Turbo's Training Mission! 🐕",
+    "game_description": "You are Turbo, a energetic German Shepherd hybrid living in a cozy apartment in Zürich with your family. Your cat companion Maxwell has been acting very strangely lately - staring at empty spaces, sitting in unusual spots, and giving you meaningful looks. Something important is happening, and Maxwell seems to know what it is. Trust his guidance and follow his mysterious clues to discover what he's trying to show you!",
+    "instruction_text": "Type 'help' for available commands. Use your dog instincts to sniff, examine, and explore!",
+    "name_prompt": "Press Enter to begin Turbo's adventure..."
   },
   "special_actions": {
-    "examine_chest": {
-      "description": "The chest looks old and weathered. Its brass fittings are tarnished with age, but it might contain something useful. The lock appears to be broken.",
+    "examine_maxwell_start": {
+      "description": "Maxwell turns his green eyes toward you with that intense stare he reserves for important moments. His ears are perked forward, and he makes a soft 'mrrow' sound - not his usual meow, but something more urgent. He looks toward the kitchen, then back at you, then toward the kitchen again. His message is clear: 'Follow me, there's something we need to do.'",
       "requirements": [],
       "effects": [],
       "repeatable": true,
-      "repeat_message": "The chest still sits there, looking as weathered as before."
+      "repeat_message": "Maxwell continues to give you that meaningful stare. He wants you to explore the apartment and find something important."
     },
-    "open_chest": {
-      "description": "You open the chest with a loud creak. Inside, nestled in faded velvet, you find a rusty key! This looks important for your quest.",
+    "examine_living_window": {
+      "description": "You put your paws on the windowsill and look outside. The view shows the garden below and the neighborhood beyond, but you can't see what's captured Maxwell's attention so intensely. Whatever he's sensing, it's not visible to your eyes - but his cat intuition is rarely wrong.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The window still shows the same peaceful view, but Maxwell's behavior suggests something more is happening."
+    },
+    "examine_dog_bed": {
+      "description": "Your comfortable dog bed sits in its usual corner, still holding the impression of your body and your familiar scent. But today, you notice Maxwell has left something here - a single cat treat placed deliberately on your pillow. This is definitely not normal cat behavior. He's trying to tell you something.",
       "requirements": [],
       "effects": [
-        {"type": "give_item", "item": "rusty_key"}
+        {"type": "give_item", "item": "favorite_bone"}
       ],
       "repeatable": false,
-      "repeat_message": "The chest is already open and empty. You've taken everything useful from it."
+      "repeat_message": "Your dog bed looks the same as always. The message Maxwell left has been received."
     },
-    "examine_start_symbols": {
-      "description": "The ancient symbols carved into the walls seem to depict a story: a key, a glowing crystal, and an open book. Below them, more symbols suggest these three items together unlock great power. This must be guidance for your quest!",
+    "sniff_living_room": {
+      "description": "You lower your nose and take in all the scents of the living room. The usual smells are there - your family, Maxwell, furniture polish, and the lingering aroma of morning coffee. But there's something else... a faint scent of anticipation, of change. Even your sensitive nose can't identify it exactly, but Maxwell clearly knows what it means.",
       "requirements": [],
       "effects": [],
       "repeatable": true,
-      "repeat_message": "The symbols still tell the same story of three artifacts and their combined power."
+      "repeat_message": "The mysterious scent of change still lingers, just beyond your ability to identify."
     },
-    "read_book": {
-      "description": "You pick up a dusty tome and carefully open it. The pages contain mysterious symbols and arcane formulas. As you study it, you feel ancient knowledge flowing into your mind. This tome will be essential for your quest!",
-      "requirements": [],
-      "effects": [
-        {"type": "give_item", "item": "ancient_tome"}
-      ],
-      "repeatable": false,
-      "repeat_message": "You've already studied this tome thoroughly. The knowledge is now part of you."
-    },
-    "examine_library_books": {
-      "description": "The shelves contain thousands of books on subjects like Ancient Magic, Forgotten Realms, Crystal Lore, and Mystical Keys. One particular tome seems to glow faintly, calling to you.",
+    "examine_maxwell_kitchen": {
+      "description": "Maxwell sits regally on the forbidden counter, completely ignoring the rule about cats staying off kitchen surfaces. His focus is entirely on the high cabinet above. He looks at you, then at the cabinet, then back at you. His tail does a slow, deliberate swish. 'Up there,' his posture says clearly, 'something important is up there.'",
       "requirements": [],
       "effects": [],
       "repeatable": true,
-      "repeat_message": "The books remain as mysterious and fascinating as ever."
+      "repeat_message": "Maxwell remains focused on that high cabinet. His determination is unwavering."
     },
-    "tower_view": {
-      "description": "From up here, you can see a vast forest to the east, snow-capped mountains to the north, and a shimmering lake to the south. The breathtaking view fills you with determination and wonder, restoring your spirit!",
-      "requirements": [],
-      "effects": [
-        {"type": "heal_player", "amount": 10}
-      ],
-      "repeatable": true,
-      "repeat_message": "The view is still magnificent, but you've already gained all the inspiration you can from it today."
-    },
-    "examine_torches": {
-      "description": "The torches burn with an unusual blue flame that never seems to consume the wood. One of them looks loose and could probably be taken. You'll need light to explore dark areas safely.",
+    "examine_high_cabinet": {
+      "description": "The cabinet is high above your head, with a simple latch that keeps it closed. From down here, you can't see what's inside, but your nose detects something interesting - a faint scent of new plastic and fabric. Maxwell continues to stare at it meaningfully. You'll need to find a way to reach that height.",
       "requirements": [],
       "effects": [],
       "repeatable": true,
-      "repeat_message": "The remaining torches are firmly mounted in their brackets."
+      "repeat_message": "The cabinet remains tantalizingly out of reach, but you can still smell something important inside."
     },
-    "examine_hallway_shadows": {
-      "description": "The shadows dance and flicker with the torchlight. They seem to form shapes and patterns, almost like they're trying to tell you something about the mysteries of this place.",
+    "examine_kitchen_cabinets": {
+      "description": "The lower kitchen cabinets are within your reach, but Maxwell isn't interested in those. His gaze remains fixed on the high cabinet. However, you notice one lower cabinet door is slightly ajar, and you catch a glimpse of something wooden inside that might be useful.",
       "requirements": [],
       "effects": [],
       "repeatable": true,
-      "repeat_message": "The shadows continue their eternal dance."
+      "repeat_message": "The lower cabinets might contain something useful for reaching higher places."
     },
-    "take_torch": {
-      "description": "You carefully remove the loose torch from its bracket. The blue flame flickers but continues to burn steadily in your hand, providing reliable light for dark places.\n\n💡 Hint: You can now 'use torch' to light up dark areas, or check your 'inventory' to see all your items!",
-      "requirements": [],
-      "effects": [
-        {"type": "give_item", "item": "torch"}
-      ],
-      "repeatable": false,
-      "repeat_message": "You've already taken the loose torch. The others are firmly secured."
-    },
-    "examine_shelves": {
-      "description": "The shelves are filled with books on various subjects: ancient history, forgotten magic, and mysterious creatures. As you run your hand along one section, you hear a soft click. One of the bookcases swings inward, revealing a hidden passage!\n\n🔍 Hint: You can now type 'north' to enter the secret chamber!",
-      "requirements": [],
-      "effects": [
-        {"type": "reveal_location", "location": "secret_chamber", "direction": "north"}
-      ],
-      "repeatable": false,
-      "repeat_message": "The secret passage is still open to the north. You've discovered all the secrets of these shelves."
-    },
-    "examine_crystals": {
-      "description": "The crystals pulse with a gentle blue light that seems to respond to your presence. They glow brighter as you approach, as if recognizing a worthy adventurer. These crystals contain powerful magic.",
-      "requirements": [],
-      "effects": [],
-      "repeatable": true,
-      "repeat_message": "The crystals continue to pulse with their mysterious energy."
-    },
-    "examine_chamber_symbols": {
-      "description": "The symbols in this chamber are different from those in the starting room. These seem to be instructions: touch the crystal to claim its power, combine it with ancient knowledge and a key to unlock the ultimate secret.",
-      "requirements": [],
-      "effects": [],
-      "repeatable": true,
-      "repeat_message": "The symbols continue to provide guidance for your quest."
-    },
-    "touch_crystals": {
-      "description": "As you touch the largest crystal, warm energy flows through your body, healing your wounds and restoring your spirit! The crystal breaks free from the wall - you can take it with you. This mystical crystal is the final piece you need for your quest!",
-      "requirements": [],
-      "effects": [
-        {"type": "heal_player", "amount": 25},
-        {"type": "give_item", "item": "glowing_crystal"}
-      ],
-      "repeatable": false,
-      "repeat_message": "The remaining crystals are firmly embedded in the wall and won't budge. You've taken the most powerful one."
-    },
-    "final_unlock": {
-      "description": "The ancient magic recognizes that you have gathered all three artifacts! The crystal provides energy, the tome provides knowledge, and the key unlocks the ultimate secret. Reality shimmers around you as the final mystery is revealed!",
+    "jump_kitchen_counter": {
+      "description": "You gather your muscles and leap onto the kitchen counter - something you're definitely not supposed to do! From up here, you're much closer to the high cabinet. Maxwell purrs approvingly and rubs against you briefly before focusing back on the cabinet. The latch is simple, but you'll need something to help you open it safely.",
       "requirements": [
-        {"type": "has_item", "item": "rusty_key", "message": "You need the rusty key to unlock this mystery."},
-        {"type": "has_item", "item": "glowing_crystal", "message": "You need the glowing crystal to power this magic."},
-        {"type": "has_item", "item": "ancient_tome", "message": "You need the ancient tome to understand this magic."}
+        {"type": "has_item", "item": "step_stool", "message": "You need something to help you reach the high cabinet safely."}
+      ],
+      "effects": [
+        {"type": "reveal_cabinet_contents"}
+      ],
+      "repeatable": false,
+      "repeat_message": "You're already on the counter, but you still need the right approach to open that cabinet."
+    },
+    "examine_treat_jar": {
+      "description": "The treat jar sits on the counter, full of your favorite snacks. But Maxwell doesn't seem interested in treats right now - his mission is far more important than food. Still, you notice the jar is positioned almost like a step, as if someone (or some cat) moved it there deliberately.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The treat jar might be useful as a stepping stone to reach higher places."
+    },
+    "sniff_high_cabinet": {
+      "description": "Standing on your hind legs, you stretch your nose toward the high cabinet. The scent is stronger here - definitely something new, something that smells like adventure gear. Your tail starts wagging unconsciously. Whatever's in there, it's something exciting!",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The exciting scent from the cabinet makes you even more determined to find a way inside."
+    },
+    "examine_maxwell_bedroom": {
+      "description": "Maxwell emerges from under the bed with dust on his whiskers and an important expression. He sits next to the bed and pats the floor with his paw, then looks at you expectantly. His behavior suggests there's something under there that requires your larger size and strength to retrieve.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "Maxwell continues to indicate that something important is under the bed."
+    },
+    "examine_under_bed": {
+      "description": "You squeeze your head under the bed and peer into the dusty space. Your nose immediately picks up an interesting scent - something fabric-based and new. Pushing further, you see a small object wedged behind one of the bed legs. It's too far back for Maxwell to reach, but perfect for your longer snout.",
+      "requirements": [],
+      "effects": [
+        {"type": "give_item", "item": "old_sock"}
+      ],
+      "repeatable": false,
+      "repeat_message": "You've already retrieved everything useful from under the bed."
+    },
+    "examine_bedroom_closet": {
+      "description": "The closet doors are slightly open, revealing hanging clothes and storage boxes on the upper shelf. Your nose detects various scents - fabric softener, shoe leather, and something else that seems important. The closet is organized, but Maxwell keeps looking at one particular corner as if something significant is hidden there.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The closet still holds secrets that Maxwell seems aware of."
+    },
+    "examine_big_bed": {
+      "description": "The humans' bed is large and comfortable-looking. Sometimes you sneak up here for naps when no one's looking. Today, Maxwell jumps onto the bed and walks to the far corner, sitting down and staring at the space between the bed and the wall. His tail twitches with that 'pay attention' rhythm.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "Maxwell continues to focus on that specific corner of the bed area."
+    },
+    "sniff_bedroom": {
+      "description": "The bedroom carries the comforting scents of your human family - their sleep smells, laundry detergent, and personal belongings. But underneath these familiar aromas, you detect something new and exciting. It's faint but definitely present, like the scent of new possibilities.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The scent of new possibilities continues to intrigue your sensitive nose."
+    },
+    "examine_maxwell_balcony": {
+      "description": "Maxwell sits by the balcony railing like a furry sphinx, his gaze fixed on a specific spot in the garden below. His ears are forward, completely focused. When you join him at the railing, he briefly rubs against your leg - a rare display of affection that tells you this is very important to him.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "Maxwell's focus on that garden spot hasn't wavered. His intensity suggests something crucial is down there."
+    },
+    "examine_garden_from_balcony": {
+      "description": "From the balcony, you have a perfect view of the garden below. Maxwell's gaze leads your eyes to a specific area near the large rhododendron bush. The soil there looks slightly disturbed, as if something has been buried or hidden. Your excitement builds - there's definitely something down there!",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The disturbed soil near the rhododendron continues to catch your attention."
+    },
+    "examine_balcony_box": {
+      "description": "The storage box contains garden tools - a small trowel, plant fertilizer, and watering supplies. But tucked underneath the tools, you spot something metallic that glints in the sunlight. It's small and appears to be deliberately hidden.",
+      "requirements": [],
+      "effects": [
+        {"type": "give_item", "item": "garden_key"}
+      ],
+      "repeatable": false,
+      "repeat_message": "The storage box now only contains the usual garden tools."
+    },
+    "examine_balcony_plants": {
+      "description": "The balcony plants are healthy and well-cared for, but they don't seem to be what Maxwell is focused on. His attention remains fixed on the garden below. However, you notice the largest plant pot has been moved recently - there are scuff marks on the balcony floor.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The plants look peaceful, but the moved pot still seems significant."
+    },
+    "sniff_balcony_air": {
+      "description": "The fresh outdoor air carries dozens of scents - flowers, earth, distant cooking, and the urban smells of Zürich. But your sensitive nose picks up something specific from the garden direction: the scent of freshly disturbed soil and something new buried beneath it.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The scent of buried treasure continues to drift up from the garden."
+    },
+    "examine_maxwell_garden": {
+      "description": "Maxwell appears from behind the rhododendron with dirt on his pristine paws - highly unusual for this fastidious cat. He sits precisely at a spot where the soil looks recently disturbed and begins that slow, meaningful tail swish that means 'dig here.' His green eyes lock onto yours with unmistakable intent.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "Maxwell remains at the digging spot, his dirty paws evidence of his own investigation."
+    },
+    "examine_garden_shed": {
+      "description": "The small tool shed sits in the corner of the garden, its door secured with a simple lock. Through the gaps in the wooden walls, you can see the dim shapes of garden tools and storage boxes. Something about the shed feels important, and Maxwell keeps glancing at it meaningfully.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The tool shed continues to seem significant, waiting for the right key."
+    },
+    "examine_flower_beds": {
+      "description": "The flower beds are beautifully maintained with colorful blooms and neat borders. But Maxwell isn't interested in the flowers - his focus is entirely on that one spot near the rhododendron where the earth has been recently disturbed.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The flower beds are lovely, but the action is clearly elsewhere in the garden."
+    },
+    "dig_behind_plants": {
+      "description": "You start digging enthusiastically at the spot Maxwell indicated. The soil is soft and gives way easily under your paws. About six inches down, your claws hit something soft and fabric-like. Carefully extracting it with your teeth, you uncover a small pair of brightly colored gloves! They're tiny - much smaller than any human hands you know.",
+      "requirements": [],
+      "effects": [
+        {"type": "give_item", "item": "child_mtb_gloves"}
+      ],
+      "repeatable": false,
+      "repeat_message": "You've already found the treasure that was buried here."
+    },
+    "sniff_garden": {
+      "description": "The garden is a symphony of scents - earth, growing plants, morning dew, and the trails of various animals that pass through. But the most interesting scent comes from that disturbed soil near the rhododendron: something new and exciting is buried there.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The garden's many scents continue to tell their stories, but the buried treasure scent is strongest."
+    },
+    "examine_big_plant": {
+      "description": "The rhododendron is large and healthy, with glossy green leaves and colorful blooms. But Maxwell has clearly been active here - there are small paw prints in the soil around its base, and the earth in one specific spot has been loosened. This is definitely where you need to dig.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The rhododendron stands as a landmark for the treasure spot Maxwell discovered."
+    },
+    "examine_storage_boxes": {
+      "description": "The storage room contains several cardboard boxes stacked along the walls. Most are sealed and labeled with things like 'Winter Clothes' and 'Old Books.' But one box in the corner seems different - it's newer, and Maxwell keeps appearing near it with that focused expression.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The boxes hold family memories, but that one special box continues to draw attention."
+    },
+    "examine_covered_furniture": {
+      "description": "Old furniture sits under white sheets like friendly ghosts. There's a desk, some chairs, and what might be a bookshelf. The furniture doesn't seem important to your quest, but Maxwell uses these pieces as stepping stones to reach higher places in the room.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The covered furniture provides useful pathways for exploration."
+    },
+    "sniff_storage_room": {
+      "description": "The storage room smells of dust, cardboard, and memories. But your sensitive nose picks up something else - the scent of metal, rubber, and new paint. It's coming from somewhere in this room, something that smells like... adventure equipment?",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The scent of adventure equipment continues to intrigue you from somewhere in this room."
+    },
+    "look_behind_storage_boxes": {
+      "description": "You squeeze behind the stack of boxes and discover a narrow space between the wall and the storage. Back here, covered by an old blanket, you find something amazing: a small, brightly colored bicycle! It's tiny - much smaller than any bike you've ever seen. Your heart starts racing as you realize what this means.",
+      "requirements": [
+        {"type": "has_item", "item": "garden_key", "message": "You need to find a way to move these heavy boxes first."}
+      ],
+      "effects": [
+        {"type": "give_item", "item": "small_mtb_bike"},
+        {"type": "trigger_revelation"}
+      ],
+      "repeatable": false,
+      "repeat_message": "The tiny bicycle sits there, a clear sign of what's coming to your family."
+    },
+    "examine_storage_window": {
+      "description": "The small window provides just enough light to see around the storage room. Dust motes dance in the sunbeam, and you can see the garden outside. Maxwell appears in the window light, having somehow found his way here to continue guiding your quest.",
+      "requirements": [],
+      "effects": [],
+      "repeatable": true,
+      "repeat_message": "The window continues to provide gentle light for your search."
+    },
+    "reveal_cabinet_contents": {
+      "description": "Using the step stool for leverage, you carefully nudge the cabinet latch open with your nose. The door swings open to reveal a small, colorful helmet sitting on the shelf! It's much smaller than any helmet you've seen before - definitely not sized for adult humans. Maxwell purrs with satisfaction as you carefully retrieve this important find.",
+      "requirements": [],
+      "effects": [
+        {"type": "give_item", "item": "child_mtb_helmet"}
+      ],
+      "repeatable": false,
+      "repeat_message": "The cabinet is now empty, its treasure claimed."
+    },
+    "get_step_stool": {
+      "description": "You grab the step stool from the lower cabinet and drag it across the kitchen floor. It makes a scraping sound, but you manage to position it near the counter. Now you should be able to reach that high cabinet that Maxwell has been so focused on!",
+      "requirements": [],
+      "effects": [
+        {"type": "give_item", "item": "step_stool"}
+      ],
+      "repeatable": false,
+      "repeat_message": "The step stool is already where you need it."
+    },
+    "unlock_garden_shed": {
+      "description": "You use the small garden key to unlock the tool shed. The door creaks open, revealing garden tools, plant pots, and in the back corner, something unexpected and wonderful! Your tail starts wagging uncontrollably as you realize what this means for your family.",
+      "requirements": [
+        {"type": "has_item", "item": "garden_key", "message": "You need the key to unlock this shed."}
+      ],
+      "effects": [
+        {"type": "give_item", "item": "small_mtb_bike"}
+      ],
+      "repeatable": false,
+      "repeat_message": "The shed is now open, its secret revealed."
+    },
+    "final_realization": {
+      "description": "As you sit surrounded by all three items you've found - the tiny helmet, the small gloves, and the miniature mountain bike - suddenly everything clicks into place! These aren't random objects... they're ALL CHILD-SIZED! Your tail goes crazy with excitement as you realize what Maxwell has been trying to tell you all along: a tiny new family member is coming! Someone small enough to need these little adventure items. Maxwell appears beside you, purring loudly, his green eyes twinkling with the satisfaction of a secret well-kept and finally revealed.",
+      "requirements": [
+        {"type": "has_item", "item": "child_mtb_helmet", "message": "You haven't found all the items yet."},
+        {"type": "has_item", "item": "child_mtb_gloves", "message": "You haven't found all the items yet."},
+        {"type": "has_item", "item": "small_mtb_bike", "message": "You haven't found all the items yet."}
       ],
       "effects": [
         {"type": "win_game"}
       ],
       "repeatable": false,
-      "repeat_message": "The final secret has been unlocked. Your quest is complete!"
+      "repeat_message": "The wonderful realization fills you with joy - a new little family member is coming!"
+    },
+    "get_step_stool_action": {
+      "description": "You nose open the lower cabinet door and find a wooden step stool inside! Perfect for reaching higher places. You grab it by the edge and drag it out, the wood scraping slightly on the kitchen floor. Maxwell watches approvingly - this is exactly what you need for the high cabinet.",
+      "requirements": [],
+      "effects": [
+        {"type": "give_item", "item": "step_stool"}
+      ],
+      "repeatable": false,
+      "repeat_message": "You've already gotten the step stool from this cabinet."
     }
   },
   "messages": {
     "help_text": [
-      "--- Available Commands ---",
+      "--- Turbo's Commands ---",
       "Movement: north (n), south (s), east (e), west (w), up (u), down (d)",
-      "Actions: examine, open, read, look around, touch, unlock",
-      "Inventory: inventory (or 'i') - show your items",
-      "Items: use [item name] - use an item from inventory",
-      "Stats: stats - show your character info", 
+      "Dog Actions: sniff around, examine [thing], dig [where], jump [where]",
+      "Inventory: inventory (or 'i') - show what you're carrying",
+      "Items: use [item name] - use something you've found",
+      "Stats: stats - check your status",
       "Other: help, look (or 'l'), quit",
       "",
-      "🎯 QUEST GOAL: Find the rusty key, ancient tome, and glowing crystal,",
-      "then return to the starting room and 'unlock door' to win!",
+      "🎯 QUEST: Follow Maxwell's mysterious guidance!",
+      "Maxwell has been acting strangely and seems to want you to find specific items.",
+      "Use your dog instincts to sniff, examine, and explore every corner of your home.",
       "",
       "💡 Tips:",
-      "- Examine everything carefully",
-      "- Some actions can only be done once",
-      "- Use your torch in dark areas",
-      "- The final secret requires all three artifacts"
+      "- Pay attention to Maxwell's behavior and where he focuses",
+      "- Some items can help you reach or unlock other areas",
+      "- Your nose and digging skills are your best tools",
+      "- Maxwell always has a reason for his mysterious actions"
     ],
-    "invalid_command": "I don't understand that command. Type 'help' for available commands.",
-    "item_not_found": "You don't have that item.",
-    "exit_message": "Thanks for playing Console.Adventure! Your adventure ends here, but the mysteries of the realm will always remember your courage."
+    "invalid_command": "You tilt your head, confused. That doesn't seem like something a smart dog like you can do. Type 'help' for available commands.",
+    "item_not_found": "You don't have that item in your mouth or nearby.",
+    "exit_message": "Thanks for playing Turbo's Training Mission! 🐕 Your adventure has revealed Maxwell's wonderful secret - a new little family member is coming soon! 🎉"
   }
 }

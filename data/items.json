@@ -1,51 +1,72 @@
 {
-  "rusty_key": {
-    "name": "Rusty Key",
-    "description": "An old, rusty key with intricate engravings. It looks like it might open something important.",
-    "pickup_message": "You picked up the rusty key. It feels surprisingly heavy in your hand.",
-    "use_message": "You use the rusty key. It turns with a satisfying click!",
-    "can_pickup": true,
-    "consumable": true,
-    "value": 10
-  },
-  "ancient_tome": {
-    "name": "Ancient Tome",
-    "description": "A leather-bound book filled with mysterious symbols and arcane knowledge. Reading it makes you feel wiser.",
-    "pickup_message": "You carefully pick up the ancient tome. Knowledge flows through your fingers.",
-    "use_message": "You study the ancient tome and gain valuable knowledge!",
+  "child_mtb_helmet": {
+    "name": "Small Colorful Helmet",
+    "description": "A tiny mountain bike helmet with bright colors and fun stickers. It's much smaller than any adult helmet you've seen - definitely designed for a very small human head. The padding inside looks soft and protective.",
+    "pickup_message": "You carefully pick up the small helmet in your mouth. It's surprisingly light and smells new. Something about its tiny size makes you feel protective and excited.",
+    "use_message": "You gently set down the small helmet. Its bright colors gleam in the light, and you can't help but wag your tail looking at it.",
     "can_pickup": true,
     "consumable": false,
-    "value": 50,
-    "special_effect": "wisdom_boost"
+    "value": 100,
+    "special_effect": "quest_item"
   },
-  "glowing_crystal": {
-    "name": "Glowing Crystal",
-    "description": "A beautiful crystal that pulses with inner light. It radiates warmth and seems to contain magical energy.",
-    "pickup_message": "You carefully pick up the glowing crystal. It warms your hand with gentle energy.",
-    "use_message": "You focus on the glowing crystal and feel your health restored!",
+  "child_mtb_gloves": {
+    "name": "Tiny Mountain Bike Gloves",
+    "description": "A pair of small mountain biking gloves with protective padding on the palms. They're incredibly tiny - definitely made for very small hands. The bright colors and fun patterns suggest they're designed for someone who loves adventure.",
+    "pickup_message": "You delicately pick up the tiny gloves. They're so small they barely fill your mouth, and they smell like new fabric and possibility.",
+    "use_message": "You place the tiny gloves carefully on the ground. Looking at them, you realize they're meant for hands much smaller than any you know.",
+    "can_pickup": true,
+    "consumable": false,
+    "value": 100,
+    "special_effect": "quest_item"
+  },
+  "small_mtb_bike": {
+    "name": "Miniature Mountain Bike",
+    "description": "A beautiful, tiny mountain bike with training wheels and bright, cheerful colors. It's perfectly proportioned but incredibly small - clearly designed for someone much, much smaller than any human you know. The sight of it makes something click in your mind.",
+    "pickup_message": "This bike is too big to carry, but you can push it with your nose. As you examine it closely, your heart starts racing. This bike is for someone VERY small...",
+    "use_message": "You sit next to the tiny bike, and suddenly everything makes sense. This isn't just any bike - it's for a CHILD! All the items you've been finding... they're all child-sized!",
+    "can_pickup": false,
+    "consumable": false,
+    "value": 200,
+    "special_effect": "final_revelation"
+  },
+  "favorite_bone": {
+    "name": "Your Favorite Bone",
+    "description": "Your beloved chew bone that you've had for months. It's perfectly shaped from your teeth marks and carries the comforting scent of many happy chewing sessions. This might be useful for trading or convincing someone to help you.",
+    "pickup_message": "You pick up your trusty bone. Its familiar weight and texture in your mouth is reassuring.",
+    "use_message": "You set down your favorite bone, hoping it might be useful for something important.",
+    "can_pickup": true,
+    "consumable": false,
+    "value": 10,
+    "special_effect": "trade_item"
+  },
+  "garden_key": {
+    "name": "Small Garden Key",
+    "description": "A small brass key that smells like metal and earth. It looks like it might open something in the garden area - perhaps a tool shed or storage box.",
+    "pickup_message": "You carefully pick up the small key. The metal feels cool against your teeth.",
+    "use_message": "You drop the key with a small clink. It might unlock something important.",
     "can_pickup": true,
     "consumable": true,
-    "value": 100,
-    "special_effect": "heal_player"
+    "value": 25,
+    "special_effect": "unlock_tool"
   },
-  "torch": {
-    "name": "Torch",
-    "description": "A burning torch that provides light in dark places. The flame dances hypnotically.",
-    "pickup_message": "",
-    "use_message": "You hold the torch high, illuminating the area around you.",
+  "step_stool": {
+    "name": "Small Step Stool",
+    "description": "A wooden step stool that the humans sometimes use to reach high places. You could probably push this around to help you reach higher shelves or cabinets.",
+    "pickup_message": "You grab the step stool by its edge and start dragging it. It's heavier than expected but manageable.",
+    "use_message": "You position the step stool carefully. Now you should be able to reach higher places!",
+    "can_pickup": true,
+    "consumable": false,
+    "value": 15,
+    "special_effect": "reach_tool"
+  },
+  "old_sock": {
+    "name": "Soft Old Sock",
+    "description": "A well-worn sock that somehow ended up in a corner. It's soft and might be useful for carrying small items or getting someone's attention.",
+    "pickup_message": "You pick up the old sock. It has that familiar laundry scent and feels soft in your mouth.",
+    "use_message": "You set down the old sock. Its soft fabric might be useful for something delicate.",
     "can_pickup": true,
     "consumable": false,
     "value": 5,
-    "special_effect": "light_source"
-  },
-  "mysterious_scroll": {
-    "name": "Mysterious Scroll",
-    "description": "A rolled parchment with strange writing. The words seem to shimmer and change when you're not looking directly at them.",
-    "pickup_message": "You pick up the mysterious scroll. The parchment feels oddly warm.",
-    "use_message": "You unroll the scroll and read the mystical words aloud...",
-    "can_pickup": true,
-    "consumable": true,
-    "value": 75,
-    "special_effect": "random_effect"
+    "special_effect": "soft_tool"
   }
 }
