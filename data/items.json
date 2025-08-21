@@ -20,12 +20,6 @@
     "use_message": "You sit next to the bike, and suddenly you feel like all the pieces are starting to come together. This bike represents something wonderful that's coming to your family!",
     "special_effect": "quest_item"
   },
-  "favorite_bone": {
-    "name": "Your Favorite Bone",
-    "description": "Your beloved chew bone that you've had for months. It's perfectly shaped from your teeth marks and carries the comforting scent of many happy chewing sessions. Sometimes familiar items can be useful in unexpected ways.",
-    "pickup_message": "You pick up your trusty bone. Its familiar weight and texture in your mouth is reassuring and comforting.",
-    "use_message": "You set down your favorite bone. It might not seem special to others, but it's precious to you."
-  },
   "garden_key": {
     "name": "Small Garden Key",
     "description": "A small brass key that smells like metal and earth. It looks like it might open something in the garden area - perhaps the tool shed where something important is waiting.",
@@ -37,11 +31,5 @@
     "description": "A wooden step stool that the humans sometimes use to reach high places. Perfect for a determined dog who needs to get to higher shelves or cabinets that might contain important discoveries.",
     "pickup_message": "You grab the step stool by its edge and start dragging it across the floor. It's heavier than expected but manageable for a strong dog like you.",
     "use_message": "You position the step stool carefully. Now you should be able to reach places that were too high before!"
-  },
-  "old_sock": {
-    "name": "Soft Old Sock",
-    "description": "A well-worn sock that somehow ended up under the bed. It's soft and might be useful for carrying small items or just providing comfort during your adventure.",
-    "pickup_message": "You pick up the old sock. It has that familiar laundry scent and feels soft and comforting in your mouth.",
-    "use_message": "You set down the old sock. Its soft fabric might be useful for something, or maybe it's just nice to have."
   }
 }

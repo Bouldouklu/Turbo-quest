@@ -337,8 +337,13 @@ class GameEngine:
         # If player has all quest items but hasn't realized the size significance, give a hint
         if (self.check_all_items_collected() and 
             not self.player.size_realization_triggered):
-            print("\n🤔 You have all the special items Maxwell wanted you to find...")
-            print("Maybe you should 'examine all items' to understand their significance?")
+            print("\n🎯 QUEST UPDATE: You have all three special items!")
+            print("💡 HINT: Try 'examine all items' to understand what they have in common.")
+        # If player has size realization but hasn't triggered final revelation
+        elif (self.player.size_realization_triggered and 
+              not self.revelation_triggered):
+            print("\n🎯 QUEST PHASE 2: Ready for Maxwell's final revelation!")
+            print("💫 Move to any location or use 'look' to discover the truth!")
     
     def show_quick_location_reminder(self):
         """
@@ -369,7 +374,12 @@ class GameEngine:
         
         # Show quest progress if relevant
         if self.player.quest_items_found > 0:
-            print(f"🎾 Quest: {self.player.quest_items_found}/3 special items found")
+            if not self.player.size_realization_triggered:
+                print(f"🎾 Quest Phase 1: {self.player.quest_items_found}/3 special items found")
+            elif not self.revelation_triggered:
+                print(f"🎾 Quest Phase 2: Understanding achieved, final revelation pending")
+            else:
+                print(f"🎉 Quest Complete: Maxwell's wonderful secret revealed!")
     
     def examine_all_quest_items(self):
         """
@@ -423,9 +433,11 @@ class GameEngine:
         # Mark the size realization as triggered
         self.player.size_realization_triggered = True
         
-        print("\n🎯 Now that you understand these items have a special purpose,")
-        print("think about WHY Maxwell wanted you to find them...")
-        print("Continue exploring or 'look' around to trigger the final revelation!")
+        print("\n🎯 QUEST PROGRESS: You've unlocked the next phase!")
+        print("💭 Now that you understand these items have a special purpose,")
+        print("   you need to discover WHY Maxwell wanted you to find them.")
+        print("\n🎮 NEXT STEP: Visit any location or use 'look' to trigger Maxwell's")
+        print("   final revelation about what these items really mean!")
     
     def move_player(self, new_location):
         """
@@ -475,10 +487,15 @@ class GameEngine:
             for direction in exits:
                 print(f"  - {direction}")
         
-        # Add hint about examining items if conditions are met
+        # Add quest progress hints based on current phase
         if (self.check_all_items_collected() and 
             not self.player.size_realization_triggered):
-            print("\n💭 You feel like you should examine all the items you've found...")
+            print("\n🎯 QUEST PHASE 1: You have all three special items!")
+            print("💭 Try 'examine all items' to understand their significance.")
+        elif (self.player.size_realization_triggered and 
+              not self.revelation_triggered):
+            print("\n🎯 QUEST PHASE 2: Maxwell's final revelation awaits!")
+            print("💫 Continue exploring to discover the wonderful truth!")
         
         # Mark this location as visited
         location["visited"] = True

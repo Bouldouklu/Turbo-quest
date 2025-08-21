@@ -39,8 +39,7 @@
       "living room": "living_room"
     },
     "actions": {
-      "look under bed": "examine_under_bed",
-      "follow maxwell": "examine_under_bed"
+      "look under bed": "examine_under_bed"
     },
     "items": [],
     "visited": false
@@ -85,7 +84,6 @@
     },
     "actions": {
       "unlock shed": "unlock_garden_shed",
-      "use key": "unlock_garden_shed",
       "examine inside": "examine_shed_contents"
     },
     "items": [],

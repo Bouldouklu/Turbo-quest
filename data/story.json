@@ -26,10 +26,7 @@
       "repeat_message": "The window shows the same peaceful view, but Maxwell's behavior suggests something more is happening."
     },
     "examine_dog_bed": {
-      "description": "Your comfortable dog bed sits in its usual corner, but today something's different. Maxwell has left a single cat treat on your pillow - definitely not normal behavior! He's trying to tell you something important. You also notice your favorite chew bone nearby.",
-      "effects": [
-        {"type": "give_item", "item": "favorite_bone"}
-      ],
+      "description": "Your comfortable dog bed sits in its usual corner, but today something's different. Maxwell has left a single cat treat on your pillow - definitely not normal behavior! He's trying to tell you something important. His message is clear: this quest is about something special coming to your family.",
       "repeatable": false,
       "repeat_message": "Your dog bed looks normal now. Maxwell's message has been received."
     },
@@ -58,12 +55,9 @@
       "repeat_message": "You've already found the helmet from the high cabinet."
     },
     "examine_under_bed": {
-      "description": "You squeeze under the bed and peer into the dusty space. Your nose picks up something interesting - there's a small object wedged behind one of the bed legs. It's too far for Maxwell to reach, but perfect for your longer snout. You carefully extract a soft old sock that might be useful later.",
-      "effects": [
-        {"type": "give_item", "item": "old_sock"}
-      ],
+      "description": "You squeeze under the bed and peer into the dusty space. Maxwell sits at the edge, watching you explore. There's nothing hidden here, but Maxwell's guidance led you to check - perhaps he wanted you to be thorough in your search. His mysterious quest continues.",
       "repeatable": false,
-      "repeat_message": "You've already retrieved everything useful from under the bed."
+      "repeat_message": "You've already searched thoroughly under the bed."
     },
     "examine_balcony_box": {
       "description": "The storage box contains garden tools - a small trowel, fertilizer, and watering supplies. But tucked underneath, you spot something metallic glinting in the sunlight. It's a small key that looks like it might unlock something important!",
@@ -104,12 +98,12 @@
       "repeat_message": "The shed is now open, its wonderful secret revealed."
     },
     "examine_shed_contents": {
-      "description": "Looking inside the unlocked shed, you see the beautiful balance bike that started everything making sense. All the pieces of Maxwell's puzzle are now clear!",
+      "description": "Looking inside the unlocked shed, you see garden tools and storage boxes neatly arranged. Now that you've found the bike, this is just a normal storage space again. Maxwell's attention has moved on to more important things.",
       "requirements": [
         {"type": "has_item", "item": "small_mtb_bike", "message": "The shed is still locked."}
       ],
       "repeatable": true,
-      "repeat_message": "The bike sits there, a wonderful sign of what's coming to your family."
+      "repeat_message": "The shed contains the usual garden supplies. The real treasure has already been found."
     }
   },
   "messages": {
@@ -120,19 +114,20 @@
       "Inventory: 'inventory' or 'i' - see what you're carrying",
       "Other: 'help', 'look', 'stats', 'quit'",
       "",
-      "🎯 QUEST: Follow Maxwell's guidance!",
-      "Maxwell knows something wonderful and is leading you to discover it.",
-      "Pay attention to where he goes and what he focuses on.",
+      "🎯 QUEST: Follow Maxwell's guidance through two phases!",
       "",
-      "🧠 Special Discovery:",
+      "📋 PHASE 1: Collect three special items (helmet, gloves, bike)",
+      "📋 PHASE 2: Understand what these items mean for your family",
+      "",
+      "🧠 Key Commands:",
       "- 'examine all items' - Compare your quest items together",
-      "- This helps you understand the significance of what you've found!",
+      "- This unlocks Phase 2 of Maxwell's quest!",
       "",
       "💡 Tips:",
       "- Trust Maxwell's instincts - he always has a reason",
       "- Look for items that can help you reach or unlock things",
-      "- When you find all three special items, examine them together!",
-      "- Understanding their significance unlocks the final revelation!"
+      "- The quest has clear phases with helpful progress indicators",
+      "- Pay attention to quest status messages for guidance!"
     ],
     "invalid_command": "You tilt your head, confused. Try 'help' to see what you can do, or just follow Maxwell's lead!",
     "exit_message": "Thanks for playing Turbo's Quest! 🐕 You've discovered Maxwell's wonderful secret - a new little family member is coming soon! 🎉"
