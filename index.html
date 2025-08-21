@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐕 Turbo's Quest 🐱</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>🐕 Turbo's Quest 🐱</h1>
+            <p class="subtitle">A heartwarming adventure about Maxwell's mysterious intuition</p>
+        </header>
+
+        <div class="game-content">
+            <div class="game-output" id="gameOutput">
+                <!-- Game text will appear here -->
+            </div>
+            
+            <div class="game-input-container">
+                <div class="input-wrapper">
+                    <span class="prompt">🐕 > </span>
+                    <input type="text" id="gameInput" placeholder="Type your command..." autocomplete="off">
+                </div>
+                <button id="submitBtn">Enter</button>
+            </div>
+
+            <div class="game-status">
+                <div class="status-item">
+                    <span class="status-label">Location:</span>
+                    <span id="currentLocation">Loading...</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Items:</span>
+                    <span id="itemCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Quest:</span>
+                    <span id="questStatus">Starting...</span>
+                </div>
+            </div>
+
+            <div class="game-help">
+                <button id="helpBtn">Help</button>
+                <button id="inventoryBtn">Inventory</button>
+                <button id="lookBtn">Look</button>
+                <button id="statsBtn">Stats</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
