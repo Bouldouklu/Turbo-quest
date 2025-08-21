@@ -1,9 +1,9 @@
 {
   "game_info": {
     "title": "Turbo's Quest",
-    "version": "1.1",
+    "version": "1.2",
     "author": "Made with Love for a Special Friend",
-    "description": "A heartwarming adventure about Maxwell's mysterious intuition and Turbo's quest to prepare for something wonderful"
+    "description": "A heartwarming adventure about Maxwell's mysterious intuition and Turbo's quest to prepare for something wonderful - now with enhanced discovery system!"
   },
   "game_settings": {
     "starting_location": "living_room",
@@ -94,13 +94,6 @@
       "repeatable": true,
       "repeat_message": "The disturbed soil near the rhododendron continues to catch your attention."
     },
-    "move_to_garden": {
-      "description": "You bound down the stairs and into the garden, ready to investigate what Maxwell has discovered.",
-      "requirements": [],
-      "effects": [],
-      "repeatable": true,
-      "repeat_message": "You're ready to explore the garden thoroughly."
-    },
     "dig_behind_plants": {
       "description": "You start digging enthusiastically at the exact spot Maxwell indicated. The soil gives way easily under your paws. About six inches down, you hit something soft and fabric-like. Carefully extracting it with your teeth, you uncover a small pair of brightly colored gloves! They're tiny - much smaller than any human hands you know.",
       "requirements": [],
@@ -151,10 +144,15 @@
       "Maxwell knows something wonderful and is leading you to discover it.",
       "Pay attention to where he goes and what he focuses on.",
       "",
+      "🧠 Special Discovery:",
+      "- 'examine all items' - Compare your quest items together",
+      "- This helps you understand the significance of what you've found!",
+      "",
       "💡 Tips:",
       "- Trust Maxwell's instincts - he always has a reason",
       "- Look for items that can help you reach or unlock things",
-      "- When you find all three special items, the mystery will be revealed!"
+      "- When you find all three special items, examine them together!",
+      "- Understanding their significance unlocks the final revelation!"
     ],
     "invalid_command": "You tilt your head, confused. Try 'help' to see what you can do, or just follow Maxwell's lead!",
     "item_not_found": "You don't have that item with you.",

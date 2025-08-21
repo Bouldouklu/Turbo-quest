@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """
-Turbo's Quest - A Heartwarming Pet Adventure (Streamlined Version)
+Turbo's Quest - A Heartwarming Pet Adventure (Enhanced Version)
 A special text adventure about Maxwell's mysterious intuition and Turbo's quest
 Built with love for a dear friend expecting a wonderful surprise!
+
+Enhanced with a gradual realization system where Turbo understands the significance
+of the item sizes before the final revelation.
 """
 
 import json
@@ -24,6 +27,7 @@ class Player:
         self.discovered_locations = []  # Places Turbo has visited
         self.completed_actions = []  # Actions completed (prevents repetition)
         self.quest_items_found = 0  # Track progress toward the big revelation
+        self.size_realization_triggered = False  # New: tracks if Turbo realized the size significance
     
     def add_item(self, item_id, items_data):
         """
@@ -45,6 +49,10 @@ class Player:
                     print("Maxwell purrs softly. You're on the right track!")
                 elif self.quest_items_found == 2:
                     print("Maxwell's tail swishes with excitement. One more to go!")
+                elif self.quest_items_found == 3:
+                    # New: Hint that something special is about to happen
+                    print("Maxwell's eyes are bright with anticipation. You have all the pieces now...")
+                    print("💡 Try using 'examine all items' to understand what you've collected!")
                 
         else:
             print(f"Error: Item '{item_id}' not found in game data.")
@@ -94,6 +102,8 @@ class Player:
         print(f"Location: {self.current_location}")
         print(f"Items Found: {len(self.inventory)}")
         print(f"Quest Progress: {self.quest_items_found}/3 special items")
+        if self.size_realization_triggered:
+            print("🧠 Understanding: You've realized something important about these items!")
         print(f"Areas Explored: {len(self.discovered_locations)}")
 
 
@@ -204,8 +214,17 @@ class GameEngine:
         This continues until the player quits or wins the game
         """
         while self.game_running:
+            # Check if we should trigger the size realization (new step!)
+            if (not self.player.size_realization_triggered and 
+                self.check_all_items_collected() and 
+                not self.revelation_triggered):
+                # Don't auto-trigger yet, let player discover it through commands
+                pass
+            
             # Check if we should trigger the final revelation
-            if not self.revelation_triggered and self.check_revelation_condition():
+            if (not self.revelation_triggered and 
+                self.player.size_realization_triggered and 
+                self.check_all_items_collected()):
                 self.trigger_final_revelation()
             
             # Get player input and process it
@@ -241,6 +260,11 @@ class GameEngine:
             self.describe_current_location()
             return
         
+        # New: Special command to examine all quest items together
+        elif command in ["examine all items", "examine items", "compare items", "look at all items"]:
+            self.examine_all_quest_items()
+            return
+        
         # Handle movement commands - simplified to use location names
         current_loc = self.locations[self.player.current_location]
         exits = current_loc.get("exits", {})
@@ -271,6 +295,65 @@ class GameEngine:
             print("  Or go to:")
             for exit_name in exits.keys():
                 print(f"  - {exit_name}")
+        
+        # New: If player has all quest items but hasn't realized the size significance, give a hint
+        if (self.check_all_items_collected() and 
+            not self.player.size_realization_triggered):
+            print("\n🤔 You have all the special items Maxwell wanted you to find...")
+            print("Maybe you should 'examine all items' to understand their significance?")
+    
+    def examine_all_quest_items(self):
+        """
+        New method: Allows Turbo to examine all quest items together
+        This triggers the size realization - the new intermediate step!
+        """
+        quest_items = ["child_mtb_helmet", "child_mtb_gloves", "small_mtb_bike"]
+        
+        # Check if player has all quest items
+        if not all(self.player.has_item(item) for item in quest_items):
+            print("You don't have all the special items yet to compare them properly.")
+            print("Keep following Maxwell's guidance!")
+            return
+        
+        # If already triggered, just show a brief description
+        if self.player.size_realization_triggered:
+            print("You look at the three items together again:")
+            print("The tiny helmet, the small gloves, and the miniature bike.")
+            print("They're definitely all made for someone VERY small...")
+            print("Maxwell's plan is becoming clearer!")
+            return
+        
+        # Trigger the size realization scene (new!)
+        print("\n" + "="*50)
+        print("🧠 MOMENT OF UNDERSTANDING 🧠")
+        print("="*50)
+        
+        print("\nYou gather all three special items together and examine them carefully...")
+        print("The colorful helmet... the protective gloves... the beautiful bike...")
+        print("\nYou tilt your head as you study each item more closely.")
+        print("Wait a minute... something's not quite right here...")
+        print("\nThe helmet is SO much smaller than any human head you know.")
+        print("The gloves could barely fit a human hand you've ever seen.")
+        print("And this bike... it's perfectly made but incredibly tiny!")
+        print("\nYour ears perk up with sudden realization...")
+        print("These aren't just small - they're CHILD-SIZED!")
+        print("Everything Maxwell has been guiding you to find...")
+        print("...is made for someone much, much smaller than any adult!")
+        print("\nYour tail starts wagging as the pieces begin to fit together.")
+        print("Maxwell appears beside you, purring softly, his eyes twinkling")
+        print("with approval. You're getting closer to understanding his secret!")
+        
+        print("\n💡 You're starting to understand Maxwell's mysterious quest!")
+        print("But there's still one more piece to the puzzle...")
+        print("What does this all MEAN for your family?")
+        print("="*50)
+        
+        # Mark the size realization as triggered
+        self.player.size_realization_triggered = True
+        
+        print("\n🎯 Now that you understand the significance of these tiny items,")
+        print("think about WHY Maxwell wanted you to find them...")
+        print("Continue exploring or 'look' around to trigger the final revelation!")
     
     def move_player(self, new_location):
         """
@@ -319,6 +402,11 @@ class GameEngine:
             print("\n🚪 You can go to:")
             for direction in exits:
                 print(f"  - {direction}")
+        
+        # New: Add hint about examining items if conditions are met
+        if (self.check_all_items_collected() and 
+            not self.player.size_realization_triggered):
+            print("\n💭 You feel like you should examine all the items you've found...")
         
         # Mark this location as visited
         location["visited"] = True
@@ -386,44 +474,64 @@ class GameEngine:
         
         elif effect_type == "trigger_revelation":
             # This effect prepares for the final revelation scene
-            self.revelation_triggered = True
+            # But now we require the size realization first!
+            if self.player.size_realization_triggered:
+                self.revelation_triggered = True
+            else:
+                print("You sense that Maxwell's quest is almost complete...")
+                print("But you feel like you need to understand something about these items first.")
         
         elif effect_type == "win_game":
             self.game_won = True
             self.game_running = False
     
-    def check_revelation_condition(self):
+    def check_all_items_collected(self):
         """
-        Check if Turbo has found all three quest items for the revelation
-        The big reveal happens when Turbo has the helmet, gloves, and bike
+        Check if Turbo has found all three quest items
+        This is used for both the size realization and final revelation
         """
         required_items = ["child_mtb_helmet", "child_mtb_gloves", "small_mtb_bike"]
         return all(self.player.has_item(item) for item in required_items)
+    
+    def check_revelation_condition(self):
+        """
+        Check if conditions are met for the final revelation
+        Now requires both having all items AND understanding their size significance
+        """
+        return (self.check_all_items_collected() and 
+                self.player.size_realization_triggered)
     
     def trigger_final_revelation(self):
         """
         Trigger the final revelation scene - the heart of the story!
         This is where Turbo realizes what Maxwell has been trying to tell him
+        Now enhanced to build on the size realization
         """
         if not self.revelation_triggered:
             print("\n" + "="*60)
-            print("🎉 AMAZING REALIZATION! 🎉")
+            print("🎉 THE WONDERFUL REVELATION! 🎉")
             print("="*60)
             
-            print("\nYou sit down and look at all the items you've found...")
-            print("The tiny helmet... the small gloves... the miniature bike...")
+            print("\nNow that you understand these items are all child-sized,")
+            print("Maxwell's mysterious behavior suddenly makes perfect sense!")
+            print("\nYou sit quietly, thinking about what this means...")
+            print("Child-sized helmet... child-sized gloves... child-sized bike...")
+            print("Why would your family need things for a CHILD?")
             print("\nSuddenly, your tail starts wagging uncontrollably!")
-            print("These aren't just random objects - they're all CHILD-SIZED!")
-            print("\nMaxwell appears beside you, purring loudly, his green eyes")
-            print("twinkling with satisfaction. He rubs against your leg affectionately.")
-            print("He's been trying to tell you something wonderful all along...")
+            print("Your heart fills with pure joy and excitement!")
             print("\n🍼 A NEW LITTLE FAMILY MEMBER IS COMING! 🍼")
-            print("\nSomeone tiny enough to need these small adventure items!")
-            print("Your family is growing, and Maxwell's mysterious cat")
-            print("intuition knew before anyone else!")
-            print("\nYour heart fills with joy and excitement. Soon there")
-            print("will be a small human to protect, play with, and")
-            print("eventually teach about mountain biking adventures!")
+            print("\nA tiny human who will need these small adventure items!")
+            print("Someone small enough to wear that helmet, those gloves,")
+            print("and ride that beautiful little bike!")
+            print("\nMaxwell appears beside you, purring loudly, his green eyes")
+            print("sparkling with satisfaction. He rubs against your leg lovingly.")
+            print("His feline intuition knew this wonderful secret all along!")
+            print("\nYour family is growing! Soon there will be a small human")
+            print("to protect, play with, and eventually teach about")
+            print("mountain biking adventures!")
+            print("\nYou spin in a happy circle, barking with joy!")
+            print("Maxwell's mysterious quest was about the most wonderful")
+            print("surprise of all - a new baby is coming to your family!")
             print("="*60)
             
             self.revelation_triggered = True
@@ -443,7 +551,12 @@ class GameEngine:
             "--- Turbo's Commands ---",
             "Follow Maxwell's guidance and explore each location!",
             "Type the action you want to take or the place you want to go.",
-            "Use 'help', 'look', 'inventory', 'stats', or 'quit'."
+            "Use 'help', 'look', 'inventory', 'stats', or 'quit'.",
+            "",
+            "Special commands:",
+            "- 'examine all items' - Look at your quest items together",
+            "",
+            "🎯 QUEST: Follow Maxwell's guidance to find three special items!"
         ])
         
         for line in help_lines:

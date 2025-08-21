@@ -55,8 +55,7 @@
     },
     "actions": {
       "examine storage box": "examine_balcony_box",
-      "look at garden": "examine_garden_from_balcony",
-      "go to garden": "move_to_garden"
+      "look at garden": "examine_garden_from_balcony"
     },
     "items": [],
     "visited": false
